@@ -1,0 +1,17 @@
+{
+  "name": "OurSailingFamily",
+  "description": "",
+  "homepage": "",
+  "keywords": [
+  ],
+  "author": "",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#master",
+    "platform": "Polymer/platform#master",
+    "paper-elements": "Polymer/paper-elements#master",
+    "font-roboto": "Polymer/font-roboto#master",
+    "core-localstorage":"Polymer/core-localstorage#master",
+     "google-map": "GoogleWebComponents/google-map#master"
+  }
+}
