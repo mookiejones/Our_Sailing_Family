@@ -1,4 +1,4 @@
-<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="waypoint-card.html">
 <link rel="import" href="bower_components/font-roboto/roboto.html">
 <link rel="import" href="bower_components/core-drawer-panel/core-drawer-panel.html">
 <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
@@ -18,12 +18,15 @@
 <link rel="import" href="bower_components/paper-shadow/paper-shadow.html">
 <link rel="import" href="bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="bower_components/google-map/google-map.html">
+<link rel="import" href="bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="bower_components/paper-shadow/paper-shadow.html">
+
 <polymer-element name="main-page">
 <template>
   <link rel="stylesheet" href="styles.css">
   <core-drawer-panel  id="drawerPanel"  narrow="{{narrow}}">
     <core-header-panel drawer  mode="waterfall">
-     <core-toolbar class="{{ {tall : !narrow} | tokenList }}">Menu</core-toolbar>
+     <core-toolbar class="narrow">Menu</core-toolbar>
        <core-item>
         <label flex>Fade out selected</label>
         <paper-toggle-button class="blue" checked="{{fadeSelected}}">
@@ -54,7 +57,34 @@
       <paper-fab icon="icons:add" on-click="{{showNewNoteInput}}"></paper-fab>
     </core-toolbar>
     <div class="content" data-fade-selected="{{fadeSelected}}">
+    <div id="main-content">
      <google-map id="googlemap" latitude="37.779" longitude="-122.3892" zoom="13" google-map-ready="{{mapReady}}"></google-map>
+     </div>
+     <div id="side">
+                   <span id="el">this element is not ready</span>
+
+           <core-ajax
+                  auto
+                  url="data/data.json"
+                  handleAs="json"
+                  on-core-response="{{ajaxResponse}}"
+                  response="{{response}}"
+                   ></core-ajax>
+            <template repeat="{{waypoint in response.waypoints}}">
+            <paper-shadow z="1">
+            <waypoint-card>
+             <p>{{waypoint.title}}</p>
+             <p>{{waypoint.name}}</p>
+             <p>{{waypoint.lat}}</p>
+             <p>{{waypoint.lng}}</p>
+            </waypoint-card>
+          </paper-shadow>
+
+
+         </template>
+
+     </div>
+     </div>
  <!--     <paper-input id="newNoteInput"
              floatingLabel
              label="Add a new note"
@@ -80,17 +110,29 @@
 </template>
 <script>
 
-  Polymer({
+  Polymer("main-page",{
     map:null,
     data:[],
     fontSize: 14,
+     ready: function() {
+     this.$.el.textContent="Document Ready";
+
+
+    },
+
     toggleDrawer: function() {
       this.$.drawerPanel.togglePanel();
     },
-     ready: function() {
-       var mapElement = this.$.googlemap;
-       mapElement.addEventListener('google-map-ready', mapLoaded);
+    mapLoaded:function (e) {
+      var map = this.map;
+      console.log('current zoom: ' + map.getZoom());
     },
+
+    ajaxResponse: function(event,response){
+      console.log(response);
+//      waypoints = response.response.waypoints;
+    },
+
     showNewNoteInput: function() {
       this.$.newNoteInput.style.display = 'block';
     },
@@ -109,10 +151,6 @@
         this.$.newNoteInput.style.display = 'none';
         this.$.newNoteInput.value = null;
       }
-    },
-    mapLoaded:function (e) {
-      var map = this.map;
-      console.log('current zoom: ' + map.getZoom());
     },
     delete: function(e) {
       this.data = this.data.filter(function(item) {
