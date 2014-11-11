@@ -1,0 +1,47 @@
+<link rel="import"
+  href="bower_components/polymer/polymer.html">
+<link rel="import"
+  href="bower_components/paper-shadow/paper-shadow.html">
+  <polymer-element name="waypoint-card">
+  <template>
+    <style>
+    :host {
+      display: block;
+      position: relative;
+      background-color: white;
+      padding: 20px;
+      width: 100%;
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+    .card-header {
+      margin-bottom: 10px;
+    }
+    .card-header {
+  margin-bottom: 10px;
+}
+polyfill-next-selector { content: '.card-header title'; }
+.card-header ::content title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 300;
+}
+polyfill-next-selector { content: '.card-header name'; }
+.card-header ::content name {
+  width: 70px;
+  border-radius: 50%;
+  margin: 10px;
+}
+    </style>
+
+<div class="card-header" layout horizontal center on-touch="{{zvalue=2}}">
+  <content select="title"></content>
+  <content select="name"></content>
+</div>
+<content></content>
+
+  </template>
+  <script>
+  Polymer({});
+  </script>
+</polymer-element>

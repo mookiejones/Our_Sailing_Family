@@ -1,0 +1,14 @@
+{
+  "waypoints": [
+    {"name":"pib","title":"1","lat":"-83","lng":"22"},
+    {"name":"pib","title":"2","lat":"-83.112","lng":"22"},
+    {"name":"pib","title":"3","lat":"-83.113","lng":"22"},
+    {"name":"pib","title":"4","lat":"-83.114","lng":"22"},
+    {"name":"pib","title":"5","lat":"-83.115","lng":"22"},
+    {"name":"pib","title":"6","lat":"-83.116","lng":"22"},
+    {"name":"pib","title":"7","lat":"-83.117","lng":"22"},
+    {"name":"pib","title":"8","lat":"-83.118","lng":"22"},
+    {"name":"pib","title":"9s","lat":"-83.119","lng":"22"}
+
+  ]
+}
