@@ -12,6 +12,8 @@
     "paper-elements": "Polymer/paper-elements#master",
     "font-roboto": "Polymer/font-roboto#master",
     "core-localstorage":"Polymer/core-localstorage#master",
-     "google-map": "GoogleWebComponents/google-map#master"
+     "google-map": "GoogleWebComponents/google-map#master",
+     "core-ajax":"Polymer/core-ajax/core-ajax.html",
+     "core-elements":"Polymer/core-elements/core-elements.html"
   }
 }
