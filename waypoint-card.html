@@ -1,8 +1,13 @@
-<link rel="import"
-  href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/core-icons/maps-icons.html">
+<link rel="import" href="bower_components/core-icons/core-icons.html">
+<link rel="import" href="bower_components/core-icon/core-icon.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/paper-input/paper-item.html">
+
 <link rel="import"
   href="bower_components/paper-shadow/paper-shadow.html">
-  <polymer-element name="waypoint-card">
+  <polymer-element name="waypoint-card" attributes="waypoint">
   <template>
     <style>
     :host {
@@ -14,6 +19,17 @@
       font-size: 1.2rem;
       font-weight: 300;
     }
+       core-icon.red {
+      transition: all 0.2s;
+      -webkit-transition: all 0.2s;
+      fill:red;
+    }
+
+    core-icon:hover {
+      fill: #fb8c00;
+    }
+
+
     .card-header {
       margin-bottom: 10px;
     }
@@ -32,16 +48,31 @@ polyfill-next-selector { content: '.card-header name'; }
   border-radius: 50%;
   margin: 10px;
 }
-    </style>
+</style>
 
 <div class="card-header" layout horizontal center on-touch="{{zvalue=2}}">
-  <content select="title"></content>
-  <content select="name"></content>
 </div>
-<content></content>
+              <p><core-icon class="red" icon="maps:place" ></core-icon><paper-input value={{waypoint.title}}></paper-input></p>
+              <div layout horizontal>
+                <label for="latitude">Latitude</label>
+             <paper-input id="latitude" disabled  label="Latitude" value={{waypoint.lat}}></paper-input>
+                           </div>
+              <div layout horizontal>
+                <label for="longitude">Latitude</label>
+             <paper-input id="longitude" disabled  label="Longitude" value={{waypoint.lng}}></paper-input>
+                           </div>
 
   </template>
   <script>
-  Polymer({});
+  Polymer("waypoint-card",{
+    waypoint:null,
+    created:function(){
+     this.waypoint = null;
+    },
+    publish:{
+     waypoint:{value:null,reflect:true}
+    }
+
+  });
   </script>
 </polymer-element>

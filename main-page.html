@@ -20,7 +20,7 @@
 <link rel="import" href="bower_components/google-map/google-map.html">
 <link rel="import" href="bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="bower_components/paper-shadow/paper-shadow.html">
-
+<link rel="import" href="bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
 <polymer-element name="main-page">
 <template>
   <link rel="stylesheet" href="styles.css">
@@ -57,11 +57,12 @@
       <paper-fab icon="icons:add" on-click="{{showNewNoteInput}}"></paper-fab>
     </core-toolbar>
     <div class="content" data-fade-selected="{{fadeSelected}}">
-    <div id="main-content">
+    <div id="main-content" layout horizontal>
      <google-map id="googlemap" latitude="37.779" longitude="-122.3892" zoom="13" google-map-ready="{{mapReady}}"></google-map>
-     </div>
+
      <div id="side">
-                   <span id="el">this element is not ready</span>
+           <core-scroll-header-panel
+            scrollAwayTopbar="true" keepCondensedHeader="true">
 
            <core-ajax
                   auto
@@ -72,16 +73,12 @@
                    ></core-ajax>
             <template repeat="{{waypoint in response.waypoints}}">
             <paper-shadow z="1">
-            <waypoint-card>
-             <p>{{waypoint.title}}</p>
-             <p>{{waypoint.name}}</p>
-             <p>{{waypoint.lat}}</p>
-             <p>{{waypoint.lng}}</p>
-            </waypoint-card>
+            <waypoint-card waypoint={{waypoint}}></waypoint-card>
           </paper-shadow>
 
 
          </template>
+       </core-scroll-header-panel>
 
      </div>
      </div>
@@ -115,8 +112,6 @@
     data:[],
     fontSize: 14,
      ready: function() {
-     this.$.el.textContent="Document Ready";
-
 
     },
 
