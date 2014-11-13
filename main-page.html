@@ -7,9 +7,13 @@
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/core-icons/maps-icons.html">
+<link rel="import" href="bower_components/core-icons/core-icons.html">
+<link rel="import" href="bower_components/core-icon/core-icon.html">
 <link rel="import" href="bower_components/core-localstorage/core-localstorage.html">
 <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="bower_components/core-item/core-item.html">
+<link rel="import" href="bower_components/core-selector/core-selector.html">
 <link rel="import" href="bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="bower_components/paper-slider/paper-slider.html">
@@ -24,6 +28,9 @@
 <polymer-element name="main-page">
 <template>
   <link rel="stylesheet" href="styles.css">
+  <div display="hidden">
+    <core-icon id="mapicon" class="mapicon" icon="maps:place" ></core-icon>
+  </div>
   <core-drawer-panel  id="drawerPanel"  narrow="{{narrow}}">
     <core-header-panel drawer  mode="waterfall">
      <core-toolbar class="narrow">Menu</core-toolbar>
@@ -57,47 +64,31 @@
       <paper-fab icon="icons:add" on-click="{{showNewNoteInput}}"></paper-fab>
     </core-toolbar>
     <div class="content" data-fade-selected="{{fadeSelected}}">
-    <div id="main-content" layout horizontal>
-     <google-map id="googlemap" latitude="37.779" longitude="-122.3892" zoom="13" google-map-ready="{{mapReady}}"></google-map>
-
-     <div id="side">
-           <core-scroll-header-panel
-            scrollAwayTopbar="true" keepCondensedHeader="true">
-
-           <core-ajax
+               <core-ajax
                   auto
                   url="data/data.json"
                   handleAs="json"
                   on-core-response="{{ajaxResponse}}"
                   response="{{response}}"
                    ></core-ajax>
+    <div id="main-content" layout horizontal>
+
+     <google-map id="googlemap" latitude="37.779" longitude="-122.3892" zoom="13" on-google-map-ready="{{mapReady}}">
             <template repeat="{{waypoint in response.waypoints}}">
-            <paper-shadow z="1">
-            <waypoint-card waypoint={{waypoint}}></waypoint-card>
-          </paper-shadow>
+             <google-map-marker on-tap="{{markerSelected}}" id={{waypoint.title}} latitude={{waypoint.lat}} longitude={{waypoint.lng}} title={{waypoint.title}} draggable="true">
+            </template>
 
+     </google-map>
 
+     <div id="side">
+           <core-selector id="waypointSelector" on-core-activate="{{coreSelect}}">
+            <template repeat="{{waypoint in response.waypoints}}">
+            <waypoint-card  waypoint={{waypoint}} ></waypoint-card>
          </template>
-       </core-scroll-header-panel>
-
+       </core-selector>
      </div>
      </div>
- <!--     <paper-input id="newNoteInput"
-             floatingLabel
-             label="Add a new note"
-             on-change="{{add}}"
-             value="{{newNote}}"></paper-input>
-      <template repeat="{{data}}" >
-        <div center horizontal layout class="item" data-done="{{done}}">
-        <paper-checkbox checked="{{done}}" on-change="{{dataChanged}}"></paper-checkbox>dy
-          <div flex class="card">
-            <p>{{body}}</p>
-            <paper-shadow z="2"></paper-shadow>
-            <paper-ripple class="recenteringTouch" fit></paper-ripple>
-          </div>
-        </div>
-      </template>
-    --></div>
+</div>
     <paper-toast id="toast" class="capsule" text="Settings have been reset!"
                duration="800"></paper-toast>
   </core-header-panel>
@@ -131,8 +122,40 @@
     showNewNoteInput: function() {
       this.$.newNoteInput.style.display = 'block';
     },
+    coreSelect:function(s,e,d){
+
+      // Get Selected Card
+      var title = e.item.waypoint.title;
+      var selectedmarker = null;
+      // Change the color of the currently selected marker.
+
+      if (this.$.googlemap){
+        var markers = this.$.googlemap.markers;
+        for(var i=0;i<markers.length;i++){
+          if (markers[i].id==title){
+          selectedmarker = markers[i];
+          break;
+          }
+
+        }
+        if (e.item.open){
+          selectedmarker.icon='http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+        }else{
+          selectedmarker.icon=null;
+        }
+      }
+      console.log('selected');
+    },
     mapReady: function(){
       console.log('map ready');
+      var markers = this.$.googlemap.markers;
+      for(var i =0;i<markers.length;i++){
+        google.maps.event.addListener(markers[i], 'click', markerSelected(markers[i]));
+      }
+    },
+    markerSelected:function(){
+      console.log('marker Selected');
+
     },
     dataChanged: function() {
       this.$.storage.save();
@@ -162,6 +185,9 @@
       this.fontSize = 14;
       this.fadeSelected = false;
       this.$.toast.show();
+    },
+    markerSelected:function(s,e,d){
+     console.log('markerSelected');
     }
   });
 </script>
