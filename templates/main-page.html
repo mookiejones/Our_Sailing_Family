@@ -1,4 +1,4 @@
-<link rel="import" href="../waypoint-card.html">
+<link rel="import" href="waypoint-card.html">
 <link rel="import" href="../bower_components/font-roboto/roboto.html">
 <link rel="import" href="../bower_components/core-drawer-panel/core-drawer-panel.html">
 <link rel="import" href="../bower_components/core-header-panel/core-header-panel.html">
@@ -27,7 +27,7 @@
 <link rel="import" href="../bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
 <polymer-element name="main-page">
 <template>
-  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../css/styles.css">
   <div display="hidden">
     <core-icon id="mapicon" class="mapicon" icon="maps:place" ></core-icon>
   </div>
@@ -66,7 +66,7 @@
     <div class="content" data-fade-selected="{{fadeSelected}}">
                <core-ajax
                   auto
-                  url="data/data.json"
+                  url="../data/data.json"
                   handleAs="json"
                   on-core-response="{{ajaxResponse}}"
                   response="{{response}}"
