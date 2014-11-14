@@ -129,6 +129,8 @@ class DeleteMess(webapp2.RequestHandler):
 class MainPage(webapp2.RequestHandler):
   def get(self):
 
+
+
     #get user and login
     usr = users.get_current_user()
     if not usr:

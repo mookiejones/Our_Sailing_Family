@@ -58,15 +58,16 @@
    <core-header-panel main mode="waterfall">
      <core-toolbar class="narrow">
       <paper-icon-button icon="menu" on-click="{{toggleDrawer}}"></paper-icon-button>
-      <span flex>My notes</span>
+      <span flex>Menu</span>
       <paper-icon-button icon="search"></paper-icon-button>
       <paper-icon-button icon="more-vert"></paper-icon-button>
       <paper-fab icon="icons:add" on-click="{{showNewNoteInput}}"></paper-fab>
     </core-toolbar>
     <div class="content" data-fade-selected="{{fadeSelected}}">
                <core-ajax
+                       id="ajax"
                   auto
-                  url="data/data.json"
+                  url="../data/data.json"
                   handleAs="json"
                   on-core-response="{{ajaxResponse}}"
                   response="{{response}}"
@@ -75,9 +76,8 @@
 
      <google-map id="googlemap" latitude="37.779" longitude="-122.3892" zoom="13" on-google-map-ready="{{mapReady}}">
             <template repeat="{{waypoint in response.waypoints}}">
-             <google-map-marker on-tap="{{markerSelected}}" id={{waypoint.title}} latitude={{waypoint.lat}} longitude={{waypoint.lng}} title={{waypoint.title}} draggable="true">
+             <google-map-marker on-tap="{{markerSelected}}" id={{waypoint.title}} latitude={{waypoint.lat}} longitude={{waypoint.lng}} draggable="true">
             </template>
-
      </google-map>
 
      <div id="side">
@@ -85,7 +85,8 @@
             <template repeat="{{waypoint in response.waypoints}}">
             <waypoint-card  waypoint={{waypoint}} ></waypoint-card>
          </template>
-       </core-selector>
+           </core-selector>
+         <paper-button raised on-tap="{{saveMarkers}}">Save</paper-button>
      </div>
      </div>
 </div>
@@ -105,6 +106,32 @@
      ready: function() {
 
     },
+      saveMarkers:function(){
+          var ajax = this.$.ajax;
+          var map = this.$.googlemap;
+          var markers = [];
+
+
+        for(var i=0;i<this.$.googlemap.markers.length;i++){
+              var item= new Object();
+              item.name = this.$.googlemap.markers[i].name;
+
+              item.lat = this.$.googlemap.markers[i].latitude;
+              item.lng = this.$.googlemap.markers[i].longitude;
+              item.title = this.$.googlemap.markers[i].id;
+              markers.push(item);
+          }
+
+          ajax.method="POST";
+          ajax.contentType = 'application/json';
+          markers = JSON.stringify(markers);
+          ajax.params = JSON.stringify(markers);
+
+          ajax.go();
+
+
+        console.log('save markers')  ;
+      },
 
     toggleDrawer: function() {
       this.$.drawerPanel.togglePanel();
@@ -114,10 +141,6 @@
       console.log('current zoom: ' + map.getZoom());
     },
 
-    ajaxResponse: function(event,response){
-      console.log(response);
-//      waypoints = response.response.waypoints;
-    },
 
     showNewNoteInput: function() {
       this.$.newNoteInput.style.display = 'block';
@@ -146,16 +169,23 @@
       }
       console.log('selected');
     },
+    markerSelected:function(){
+      console.log('marker Selected');
+    },
     mapReady: function(){
       console.log('map ready');
       var markers = this.$.googlemap.markers;
-      for(var i =0;i<markers.length;i++){
-        google.maps.event.addListener(markers[i], 'click', markerSelected(markers[i]));
-      }
-    },
-    markerSelected:function(){
-      console.log('marker Selected');
+      for(marker  in this.$.googlemap.markers)
+      { this.$.googlemap.addEventListener('click',marker,function(){
+          console.log('marker clicked');
 
+      });
+      }
+      for(var i =0;i<markers.length;i++){
+        google.maps.event.addListener(markers[i], 'click',function(){
+          markerSelected(markers[i]);
+        });
+      }
     },
     dataChanged: function() {
       this.$.storage.save();

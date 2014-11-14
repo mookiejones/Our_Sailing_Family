@@ -15,6 +15,12 @@
      "google-map": "GoogleWebComponents/google-map#master",
      "core-ajax":"Polymer/core-ajax",
      "core-elements":"Polymer/core-elements",
-     "point-overlay": "brendankenny/point-overlay#master"
-  }
+     "point-overlay": "brendankenny/point-overlay#master",
+     "google-signin":"GoogleWebComponents/google-signin#master",
+     "google-hangout-button":"GoogleWebComponents/google-hangout-button#master",
+     "google-drive":"GoogleWebComponents/google-drive#master",
+       "google-chart":"GoogleWebComponents/google-drive#master",
+     "google-sheets":"GoogleWebComponents/google-sheets#master",
+     "google-calendar":"GoogleWebComponents/google-calendar#master"
+}
 }

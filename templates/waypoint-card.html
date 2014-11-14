@@ -80,7 +80,9 @@ polyfill-next-selector { content: '.card-header name'; }
 }
 
 </style>
-  <template if="{{open}}">
+    <paper-shadow id="shadow" class="waypoint-shadow"  z={{z}} >
+    <template if="{{open}}">
+
   <core-icon class="red" icon="maps:place" ></core-icon></template><span>Name: {{waypoint.name}} Title: {{waypoint.title}}</span>
   <template if="{{open}}">
   <div vertical layout>
@@ -89,7 +91,7 @@ polyfill-next-selector { content: '.card-header name'; }
     <paper-button raised class="colored" on-tap={{onTap}}>Delete</paper-button>
   </div>
   </template>
-  <paper-shadow id="shadow" class="waypoint-shadow"  z={{z}} ></paper-shadow>
+</paper-shadow>
 
 </template>
   <script>
