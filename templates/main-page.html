@@ -23,6 +23,9 @@
 <link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="../bower_components/google-map/google-map.html">
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../bower_components/google-signin/google-signin.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-action-dialog.html">
+
 <link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
 <link rel="import" href="../bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
 <polymer-element name="main-page">
@@ -54,6 +57,7 @@
           reset
         </paper-button>
       </core-item>
+
     </core-header-panel>
    <core-header-panel main mode="waterfall">
      <core-toolbar class="narrow">
@@ -90,22 +94,44 @@
      </div>
      </div>
 </div>
+
     <paper-toast id="toast" class="capsule" text="Settings have been reset!"
                duration="800"></paper-toast>
   </core-header-panel>
 
   </core-drawer-panel>
    <core-localstorage id="storage" name="oursailingfamily-storage" value="{{data}}"></core-localstorage>
+<paper-action-dialog id="dialog" heading="Title" backdrop>
+
+    <p>Standard button with `profile` scope:</p>
+  <google-signin clientId="814058177458-3ii9uo244mgic73o4a8sorj6ole27v3n.apps.googleusercontent.com"
+  on-google-signin-aware-success="{{signIn}}" scopes="profile"></google-signin>
+
+    <p>Wide tall button with `email` scope:</p>
+    <google-signin clientId="814058177458-3ii9uo244mgic73o4a8sorj6ole27v3n.apps.googleusercontent.com" scopes="email" width="wide" height="tall"></google-signin>
+
+    <p>Short light themed button with `email` and `plus.profile.emails.read` scope:</p>
+    <google-signin clientId="814058177458-3ii9uo244mgic73o4a8sorj6ole27v3n.apps.googleusercontent.com" scopes="https://www.googleapis.com/auth/plus.profile.emails.read email" theme="light" width="standard" height="short"></google-signin>
+
+    <p>Tall light themed icon only button with `plus.login` scope:</p>
+    <google-signin clientId="814058177458-3ii9uo244mgic73o4a8sorj6ole27v3n.apps.googleusercontent.com" scopes="https://www.googleapis.com/auth/plus.login" theme="light" width="iconOnly" height="tall"></google-signin>
+    <paper-button dismissive>Close</paper-button>
 </template>
+
 <script>
 
   Polymer("main-page",{
     map:null,
     data:[],
     fontSize: 14,
+    status:'Not granted',
      ready: function() {
 
-    },
+    },status: 'Not granted',
+          signIn: function(response) {
+            this.status = 'Signin granted';
+            console.log('Signin Response', response);
+          },
       saveMarkers:function(){
           var ajax = this.$.ajax;
           var map = this.$.googlemap;
@@ -139,6 +165,9 @@
     mapLoaded:function (e) {
       var map = this.map;
       console.log('current zoom: ' + map.getZoom());
+    },
+    showDialog:function(){
+
     },
 
 
@@ -215,6 +244,7 @@
       this.fontSize = 14;
       this.fadeSelected = false;
       this.$.toast.show();
+      this.$.dialog.toggle();
     },
     markerSelected:function(s,e,d){
      console.log('markerSelected');
