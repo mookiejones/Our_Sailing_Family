@@ -1,0 +1,126 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-icons/maps-icons.html">
+<link rel="import" href="../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../bower_components/core-icon/core-icon.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-input-decorator.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import"   href="../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import"   href="../bower_components/paper-button/paper-button.html">
+
+<polymer-element name="waypoint-card" attributes="waypoint z"
+  on-tap="{{togglePanel}}" on-mouseover="{{onMouseOver}}" on-mouseout="{{onMouseOut}}" >
+  <template>
+    <style>
+    :host {
+      display: block;
+      position: relative;
+      background-color: white;
+      padding: 5px;
+      width: 100%;
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+
+   core-icon.red {
+      transition: all 0.2s;
+      -webkit-transition: all 0.2s;
+      fill:red;
+      margin-right:1em;
+    }
+
+    core-icon:hover {
+      fill: #fb8c00;
+    }
+
+    paper-button.colored {
+      color: #4285f4;
+      margin:0em 1em 1em 1em;
+    }
+     paper-button[raised].colored {
+      background: #4285f4;
+      color: #fff;
+    }
+
+    .card-header {
+      margin-bottom: 10px;
+    }
+    .card-header {
+  margin-bottom: 10px;}
+
+.paper-shadow-bottom{pointer-events:none}
+
+polyfill-next-selector { content: '.card-header title'; }
+.card-header ::content title {
+  margin: 0;
+  font-size: .7em;
+  font-weight: 300;
+}
+
+
+span.location{
+    font-size: .7em;
+    width: 100%;
+    font-weight: 300;
+    text-align: center;
+}
+
+h2{
+    font-size: .7em;
+    width: 100%;
+    font-weight: 400;
+    text-align: center;
+}
+
+polyfill-next-selector { content: '.card-header name'; }
+.card-header ::content name {
+  width: 70px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+</style>
+  <template if="{{open}}">
+  <core-icon class="red" icon="maps:place" ></core-icon></template><span>Name: {{waypoint.name}} Title: {{waypoint.title}}</span>
+  <template if="{{open}}">
+  <div vertical layout>
+    <div horizontal layout center><h2>Latitude:</h2><span class="location"> {{waypoint.lat}}</span></div>
+    <div horizontal layout center><h2>Longitude:</h2><span class="location"> {{waypoint.lng}}</span></div>
+    <paper-button raised class="colored" on-tap={{onTap}}>Delete</paper-button>
+  </div>
+  </template>
+  <paper-shadow id="shadow" class="waypoint-shadow"  z={{z}} ></paper-shadow>
+
+</template>
+  <script>
+  Polymer("waypoint-card",{
+    z:0,
+    waypoint:null,
+    created:function(){
+     this.waypoint = null;
+    },
+    publish:{
+     waypoint:{value:null,reflect:true}
+    },
+     togglePanel:function(e,detail,sender){this.open=!this.open},
+
+   openChanged:function(){this.$.shadow.z=2;this.onMouseOut()},
+
+  onMouseOver:function(e,detail,sender){
+    if(!this.open){this.$.shadow.z=1}
+    console.log('onMouseOver');
+  },
+  onTap:function(e,detail,sender){
+    this.open=true;
+
+  },
+
+   onMouseOut:function(e,detail,sender){
+     if(!this.open){this.$.shadow.z=0}
+
+   },
+
+
+  });
+  </script>
+</polymer-element>

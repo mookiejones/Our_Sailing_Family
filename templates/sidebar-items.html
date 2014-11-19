@@ -1,0 +1,30 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="sidebar-items" attributes="data journey waypoints show"
+  on-tap="{{togglePanel}}" on-mouseover="{{onMouseOver}}" on-mouseout="{{onMouseOut}}" >
+  <template>
+    <style>
+    :host {
+      display: block;
+      width: 100%;
+    }
+    waypoint-card{
+
+    }
+</style>
+  <template if="{{show=='waypoints'}}">
+	</template>
+	<template if "{{show=='journeys'}}">
+	</template>
+
+  <script>
+  Polymer("sidebar-items",{
+  	data:[],
+  	journey:null,
+  	waypoints:null,
+  	show:"waypoints"
+
+
+  });
+  </script>
+</polymer-element>

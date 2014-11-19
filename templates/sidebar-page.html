@@ -1,0 +1,72 @@
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
+
+
+<polymer-element name="sidebar-page" attributes="{{data}}">
+<template>
+<style>
+  #tabs {
+  width: 100%;
+  margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-transform: uppercase;
+}
+paper-tabs{
+	  background-color: #00bcd4;
+      color: #fff;
+      box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+}
+ paper-tabs.transparent-teal {
+      background-color: transparent;
+      color: #00bcd4;
+      box-shadow: none;
+    }
+
+    paper-tabs.transparent-teal::shadow #selectionBar {
+      background-color: #00bcd4;
+    }
+
+    paper-tabs.transparent-teal paper-tab::shadow #ink {
+      color: #00bcd4;
+    }
+</style>
+<paper-tabs id="tabs" selected="journeys" self-end>
+  <paper-tab id="journeys-tab" name="journeys">Journeys</paper-tab>
+  <paper-tab id="waypoints-tab" name="waypoints">Waypoints</paper-tab>
+</paper-tabs>
+</template>
+<script>
+    Polymer("sidebar-page",{
+    	data:[],
+    	ready:function(){
+    		console.log('sidebar-page ready');
+    	},
+    	publish:{
+    		journey:{value: null,reflect:true},
+    		waypoint:{value:null,reflect:true}
+    	},
+    	observe:{
+    		journey:'updateJourney',
+    		waypoint:'updateWaypoint',
+    		data:'updateData'
+    	},
+    	attached:function(e){
+    		console.log('attached');
+    	},
+    	detached: function(){
+    		console.log(data);
+    	},
+    	contentChanged:function(){
+    		console.log('content changed');
+    	},
+    	attributeChanged:function(attrName, oldVal, newVal){
+    		console.log("Attribute " + attrName+" changed");
+
+    	}
+
+    })
+</script>
+</polymer-element>
