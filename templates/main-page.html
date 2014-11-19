@@ -55,6 +55,7 @@
      <core-toolbar class="narrow">
       <paper-icon-button icon="menu" on-click="{{toggleDrawer}}"></paper-icon-button>
       <span flex>Journeys</span>
+      <sidebar-page data={{response}} waypoints={{waypoints}}></sidebar-page>
       <paper-icon-button icon="search"></paper-icon-button>
       <paper-icon-button icon="more-vert"></paper-icon-button>
       <paper-fab icon="icons:add" on-click="{{showNewNoteInput}}"></paper-fab>
@@ -78,15 +79,12 @@
      </google-map>
 
      <div id="side">
-        <sidebar-page id="sidebar" data={{response}}>
-<!--           <core-selector id="waypointSelector" on-core-activate="{{coreSelect}}">
+       <core-selector id="waypointSelector" on-core-activate="{{coreSelect}}">
             <template id="waypointTemplate" repeat="{{waypoint in response.waypoints}}">
             <waypoint-card  waypoint={{waypoint}} ></waypoint-card>
          </template>
        </core-selector>
--->
-        </sidebar-page>
-     </div>
+   </div>
      </div>
 </div>
     <paper-toast id="toast" class="capsule" text="Settings have been reset!"
@@ -306,6 +304,7 @@ function createPoint(pos) {
     },
 
     ajaxResponse: function(event,response){
+      this.$.sidebar.journeys = response.journeys;
       this.response = response.response;
       waypoints = response.response.waypoints;
       this.$.sidebar.data = response;
