@@ -2,7 +2,7 @@
 <link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
 
 
-<polymer-element name="sidebar-page" attributes="data">
+<polymer-element name="sidebar-page" attributes="tab_idx selected">
 <template>
 <style>
   #tabs {
@@ -34,40 +34,10 @@ paper-tabs{
       color: #00bcd4;
     }
 </style>
-<paper-tabs id="tabs" selected="journeys" self-end>
-  <paper-tab id="journeys-tab" name="journeys">Journeys</paper-tab>
-  <paper-tab id="waypoints-tab" name="waypoints">Waypoints</paper-tab>
+<paper-tabs id="tabs" selectedIndex="{{tab_idx}}" selected="{{selected}}" self-end>
+  <paper-tab id="journeys-tab" name="Journeys">Journeys</paper-tab>
+  <paper-tab id="waypoints-tab" name="Waypoints">Waypoints</paper-tab>
 </paper-tabs>
 </template>
-<script>
-    Polymer("sidebar-page",{
-    	data:[],
-    	ready:function(){
-    		console.log('sidebar-page ready');
-    	},
-    	publish:{
-    		journey:{value: null,reflect:true},
-    		waypoint:{value:null,reflect:true}
-    	},
-    	observe:{
-    		journey:'updateJourney',
-    		waypoint:'updateWaypoint',
-    		data:'updateData'
-    	},
-    	attached:function(e){
-    		console.log('attached');
-    	},
-    	detached: function(){
-    		console.log(data);
-    	},
-    	contentChanged:function(){
-    		console.log('content changed');
-    	},
-    	attributeChanged:function(attrName, oldVal, newVal){
-    		console.log("Attribute " + attrName+" changed");
-
-    	}
-
-    })
-</script>
+  <script src="../js/sidebar_page.js"></script>
 </polymer-element>

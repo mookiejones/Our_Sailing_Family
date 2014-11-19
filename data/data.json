@@ -18,8 +18,7 @@
             ,
                     "journey":
             {
-                                "id":2,
-
+                "id":2,
                 "name":"kellys idland",
                 "waypoints":[
                         {"id":"1","lat":"37.771","lng":"-122.3897"},
