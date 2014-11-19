@@ -1,4 +1,7 @@
 <link rel="import" href="waypoint-card.html">
+<link rel="import" href="sidebar-page.html">
+<link rel="import" href="journey-card.html">
+
 <link rel="import" href="../bower_components/font-roboto/roboto.html">
 <link rel="import" href="../bower_components/core-drawer-panel/core-drawer-panel.html">
 <link rel="import" href="../bower_components/core-header-panel/core-header-panel.html">
@@ -25,7 +28,7 @@
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="../bower_components/core-animated-pages/core-animated-pages.html">
 <link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
-<link rel="import" href="sidebar-page.html">
+
 <link rel="import" href="data-service.html">
 <link rel="import" href="../bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
 <polymer-element name="main-page">
@@ -70,7 +73,7 @@
                   id="ajax"
                   url="../data/data.json"
                   handleAs="json"
-                  response="{{ response }}"
+                  response="{{response}}"
                    ></core-ajax>
 
     <div id="main-content" layout horizontal>
@@ -84,18 +87,16 @@
      <div id="side">
 
 
+         <data-service id="service" data="{{data_items}}">
+         </data-service>
 
 
          <core-animated-pages selected="{{tab_idx}}" flex>
-      <div><span>Journeys</span>
-    <data-service data="{{data}}">
-    <template repeat="{{journey in data.journeys}}">
-      <span>{{journey}}</span>
-    </template>
-
-
-
-      </div>
+      <div>
+        <template repeat="{{journey in data_items.journeys}}">
+            <journey-card journey="{{journey}}" on-journey-tap="{{handleWaypoints}}"></journey-card>
+        </template>
+     </div>
       <div><span>Waypoints</span>
           <template repeat="{{ journey in journeys }}">
               <span><b>{{ journey }}</b></span>

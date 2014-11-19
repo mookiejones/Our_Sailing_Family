@@ -74,17 +74,16 @@ function WayPoint(latLng,map){
 		    strokeOpacity: 1.0,
 		    strokeWeight: 3
 		  	}
-	var waypoints=[];
+
 	var dearborn = null;
 	var myhome = null;
 	var weatherLayer = null;
 	var cloudLayer = null;
 	var debug = true;
 	var marineMap;
-	var route=[];
-	var clickcount=0;
 	var markers;
-	var poly; googlemap=null;
+	var poly;
+    var googlemap=null;
 	var result;
 	var wunderground = "http://api.wunderground.com/api/b52ad4185dacf690/";
   var geocoder;
@@ -320,14 +319,14 @@ function writeDebug(message){
 			tilt: 45,
 			zoomControlOptions: {
 			    style: google.maps.ZoomControlStyle.DEFAULT
-			  },
+			  }
 
 
 	};
 
-	  googlemap.map.setOptions(mapOptions);
+	    googlemap.map.setOptions(mapOptions);
 
-    geocoder = new google.maps.Geocoder();
+        geocoder = new google.maps.Geocoder();
 
 
 		// Get Map Markers
@@ -500,10 +499,11 @@ function writeDebug(message){
 
 
 			handleNoGeolocation:function(errorFlag){
+                var content='';
 			  if(errorFlag){
-			    var content = "Error: The geolocation service failed.";
+			     content = "Error: The geolocation service failed.";
 			  }else{
-			  var content ="Error: Your browser support geolocation.";
+			   content ="Error: Your browser support geolocation.";
 			  }
 			  var options = {
   			  map:this.$.googlemap.map,
@@ -514,5 +514,9 @@ function writeDebug(message){
 			  var infowindow = new google.maps.InfoWindow(options);
 			  googlemaps.map.setCenter(options.position);
 			},
+      handleWaypoints:function(event,detail,sender){
+          alert('waypoints changed');
+            writeDebug('waypoints changed');
+        }
 
     });
