@@ -30,6 +30,7 @@
 <link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
 <link rel="import" href="../bower_components/core-list/core-list.html">
 <link rel="import" href="data-service.html">
+<link rel="import" href="map-page.html">
 <link rel="import" href="../bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
 <polymer-element name="main-page">
 <template>
@@ -83,13 +84,10 @@
                 <journey-card journey="{{journey}}" on-show-waypoints="{{showWaypoints}}" on-save-waypoints="{{saveWaypoints}}"></journey-card>
             </template>
             </section>
-          <section><span>Waypoints</span>
-          <core-list>
+          <section>
               <template repeat="{{ waypoint in data_items.journeys[tab_idx].waypoints }}">
                   <waypoint-card journey="{{data_items.journeys[tab_idx].name}}" waypoint="{{waypoint}}"></waypoint-card>
-              </template></div>
-             </template>
-          </core-list>
+              </template>
            </section>
         </core-animated-pages>
           <div layout horizontal>

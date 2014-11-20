@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
-<link rel="import" href="../bower_components/core-localstorage/core-localstorage.html">
+<!-- <link rel="import" href="../bower_components/core-ajax/core-ajax.html"> -->
+ <link rel="import" href="../bower_components/core-localstorage/core-localstorage.html">
 <link rel="import" href="../bower_components/firebase-element/firebase-element.html">
 
 <!--
@@ -15,7 +15,7 @@
 <polymer-element name="data-service" attributes="data saveData">
   <template>
     <firebase-element id="base" location="https://oursailingfamily.firebaseio.com/" data="{{data}}" keys="{{keys}}" on-data-changed="{{onDataChanged}}"></firebase-element>
-    <core-ajax id="ajax" auto url="../data/data.json" on-core-response="{{dataLoaded}}" on-core-error="{{dataError}}"  handleAs="json"></core-ajax>
+<!--    <core-ajax id="ajax" auto url="../data/data.json" on-core-response="{{dataLoaded}}" on-core-error="{{dataError}}"  handleAs="json"></core-ajax> -->
     <core-localstorage id="storage" name="data-items" value="{{data}}"></core-localstorage>
   </template>
 </template>

@@ -72,14 +72,21 @@ polyfill-next-selector { content: '.card-header name'; }
   border-radius: 50%;
   margin: 10px;
 }
+span.location{
+
+}
 
 </style>
     <paper-shadow id="shadow" class="waypoint-shadow"  z={{z}} >
     <template if="{{open}}">
 
-  <core-icon class="red" icon="maps:place" ></core-icon></template> <span style="font-size:.8em"> Journey:</span><span>{{journey}} </span>
-        <div horizontal layout center><h2>Latitude:</h2><span class="location"> {{waypoint.lat | toFixed(3)}}</span></div>
-        <div horizontal layout center><h2>Longitude:</h2><span class="location"> {{waypoint.lng| toFixed}}</span></div>
+  <core-icon class="red" icon="maps:place" ></core-icon></template> <span style="font-size:.8em;text-transform:uppercase;">{{journey}} </span>
+  <div horizontal layout style="display:inline-block;">
+
+        <div horizontal layout ><h2>Latitude:</h2><span class="location"> {{waypoint.lat | toFixed(3)}}</span>
+    <h2>Longitude:</h2><span class="location"> {{waypoint.lng| toFixed}}</span></div>
+  </div>
+
 
   <template if="{{open}}">
   <div vertical layout>
