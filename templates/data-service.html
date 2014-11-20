@@ -15,7 +15,7 @@
 <polymer-element name="data-service" attributes="data saveData">
   <template>
     <firebase-element id="base" location="https://oursailingfamily.firebaseio.com/" data="{{data}}" keys="{{keys}}" on-data-changed="{{onDataChanged}}"></firebase-element>
-<!-- <core-ajax id="ajax" auto url="../data/data.json" on-core-response="{{dataLoaded}}" on-core-error="{{dataError}}"  handleAs="json"></core-ajax>  -->
+<core-ajax id="ajax"  url="../data/data.json" on-core-response="{{dataLoaded}}" on-core-error="{{dataError}}"  handleAs="json"></core-ajax>
     <core-localstorage id="storage" name="data-items" value="{{data}}"></core-localstorage>
   </template>
 </template>
@@ -29,9 +29,13 @@
       console.log('attached');
       this.$.storage.load();
 
-
+if (this.$.storage.value){
         this.data = this.$.storage.value;
-                  this.$.base.data=this.data;
+                  this.$.base.data=this.data;}
+                  else
+                  {
+                    this.$.ajax.go();
+                  }
 
     },
     observe:{
@@ -44,11 +48,17 @@
     dataLoaded:function(){
       console.log('dataLoaded');
 
-      if (this.$.storage.length>0){
+      if (this.$.storage.value&&this.$.storage.value.journeys){
         this.data = this.$.storage.value;
       }else {
-        this.data = this.$.ajax.response;
+
+        var d = this.$.ajax.response;
+        this.data = d;
+        this.$.storage.value = d;
+        this.$.storage.save();
+        this.data = d;
       }
+
        this.$.base.data=this.data;
     },
     onDataChanged:function(d){

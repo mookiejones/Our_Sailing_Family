@@ -83,6 +83,7 @@ function WayPoint(latLng,map){
 	var debug = true;
 	var marineMap;
 	var markers;
+	var route=[];
 	var poly;
     var googlemap=null;
 	var result;
@@ -99,18 +100,16 @@ var addMarker=function(e,d,s){
 
         geocoder.geocode({'latLng': pos}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            googlemap.map.setZoom(11);
 
             // Get Location Address
             address = results[0].formatted_address;
 
             // Add Marker
-            this.addMarker(pos,address);
+//            this.addMarker(pos,address);
 
             var item = document.createElement("option");
             item.text = address;
-            item.data=selectedMarker;
-            var selector = document.getElementsByName('sometext')[0];
+             var selector = document.getElementsByName('sometext')[0];
             selector.add(item);
         }
       });
@@ -118,11 +117,14 @@ var addMarker=function(e,d,s){
 			var waypoint = {lat:e.lat(),lng:e.lng(),name:"new",title:"999"};
 			waypoints.push(waypoint);
 
-		 	route.push(e.latLng);
+if (!route){
+	route = new Array();
+		}
+		 	route.push(pos);
 			poly.setPath(route);
 
 			googlemap.markers.every(function(m){
-				m.addListener(m,'dragend',function(){
+				googlemap.addMapListeners(m,'dragend',function(){
 					console.log('drug');
 				});
 			});
@@ -136,7 +138,6 @@ var createWaypoint=function(e){
     var address;
     geocoder.geocode({'latLng': pos}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            googlemap.map.setZoom(11);
 
 
             // Get Location Address
@@ -165,7 +166,6 @@ function createPoint(pos) {
     var address;
     geocoder.geocode({'latLng': pos}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            googlemap.map.setZoom(11);
 
             // Get Location Address
             address = results[0].formatted_address;
@@ -300,9 +300,7 @@ function writeDebug(message){
 
 	  // Change Zoom to saved value
 		if (this.data_items.zoom){
-  		this.$.googlemap.map.zoom = this.data_items.zoom;
-  		googlemap.map.zoom = this.data_items.zoom;
-  		console.log(	this.$.googlemap.map.zoom);
+      googlemap.map.setZoom(this.data_items.zoom);
 		}
 
 		if (navigator.geolocation){
@@ -328,7 +326,6 @@ function writeDebug(message){
 			        position: google.maps.ControlPosition.RIGHT_BOTTOM
 			    },
 			  overviewMapControl: true,
-			zoom: 10,
 			tilt: 45,
 			zoomControlOptions: {
 			    style: google.maps.ZoomControlStyle.DEFAULT
@@ -374,7 +371,6 @@ function writeDebug(message){
     var address;
     geocoder.geocode({'latLng': pos}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            googlemap.map.setZoom(11);
 
             // Get Location Address
             address = results[0].formatted_address;
@@ -460,7 +456,6 @@ function writeDebug(message){
       var address;
         geocoder.geocode({'latLng': pos}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            googlemap.map.setZoom(11);
 
             // Get Location Address
             address = results[0].formatted_address;
