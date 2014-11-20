@@ -18,7 +18,7 @@
 //    background-color: white;
       margin-top: 1em;
       margin-bottom: -.33em;
-      padding: .25em 1em;
+//      padding: .25em 1em;
       width: 100%;
       font-size: 1.2rem;
       border-radius: inherit;
@@ -107,6 +107,9 @@ h2{
      togglePanel:function(e,detail,sender){
          this.open=!this.open
          this.fire('show-waypoints');
+
+         this.$.title.style.fontWeight=this.open?"500":"200";
+
      },
 
    openChanged:function(){this.$.shadow.setZ(2);this.onMouseOut()},
@@ -115,7 +118,7 @@ h2{
     if(!this.open){
       this.$.shadow.setZ(1);
     }
-      this.$.title.style.fontWeight="500";
+      this.$.title.style.fontWeight="300";
   },
   onTap:function(e,detail,sender){
     this.open=true;

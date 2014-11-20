@@ -240,10 +240,12 @@ function writeDebug(message){
           }
 
         }
+        if (selectedmarker){
         if (e.item.open){
           selectedmarker.icon='http://maps.google.com/mapfiles/ms/icons/green-dot.png';
         }else{
           selectedmarker.icon=null;
+        }
         }
       }
     },

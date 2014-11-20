@@ -28,7 +28,7 @@
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="../bower_components/core-animated-pages/core-animated-pages.html">
 <link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
-
+<link rel="import" href="../bower_components/core-list/core-list.html">
 <link rel="import" href="data-service.html">
 <link rel="import" href="../bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
 <polymer-element name="main-page">
@@ -49,76 +49,60 @@
       </core-item>
        <core-item>
         <label flex>Maintenance</label>
-    </core-item>
+      </core-item>
        <core-item>
         <paper-button raised class="colored" on-click="{{reset}}">
           reset
         </paper-button>
       </core-item>
     </core-header-panel>
-   <core-header-panel main mode="waterfall">
+    <core-header-panel main mode="waterfall">
      <core-toolbar class="narrow">
-<!--      <paper-icon-button icon="menu" on-click="{{toggleDrawer}}"></paper-icon-button> -->
       <span flex>{{tab_name}}</span>
       <sidebar-page tab_idx="{{tab_idx}}" selected="{{tab_name}}" ></sidebar-page>
-
-
       <paper-icon-button icon="search"></paper-icon-button>
       <paper-icon-button icon="more-vert"></paper-icon-button>
       <paper-fab icon="icons:add" on-click="{{showNewNoteInput}}"></paper-fab>
     </core-toolbar>
     <div class="content" data-fade-selected="{{fadeSelected}}">
-               <core-ajax
-                  auto
-                  id="ajax"
-                  url="../data/data.json"
-                  handleAs="json"
-                  response="{{response}}"
-                   ></core-ajax>
-
-    <div id="main-content" layout horizontal>
-
-     <google-map id="googlemap" apiKey="AIzaSyAiwhwlkx_c3KRplTS-Vjz2xTRk55xjNNg" latitude="42.3144" longitude="-83.1763889" zoom="13"
+      <div id="main-content" layout horizontal>
+       <google-map id="googlemap" apiKey="AIzaSyAiwhwlkx_c3KRplTS-Vjz2xTRk55xjNNg" latitude="42.3144" longitude="-83.1763889" zoom="13"
      	 on-google-map-ready="{{mapReady}}" libraries="geometry">
             <template id="markersTemplate" repeat="{{waypoint in currentWaypoints}}">
              <google-map-marker on-tap="{{markerSelected}}" id={{waypoint.title}} latitude={{waypoint.lat}} longitude={{waypoint.lng}} title={{waypoint.title}} draggable="true"></google-map-marker>
             </template>
      </google-map>
-     <div id="side">
+  <paper-toast id="toast" class="capsule" text="Settings have been reset!" duration="800"></paper-toast>
+        <div id="side">
+        <data-service id="service" data="{{data_items}}">
+             </data-service>
+        <core-animated-pages selected="{{tab_idx}}" transitions="cross-fade-all hero-transition" >
+          <section>
 
-
-         <data-service id="service" data="{{data_items}}">
-         </data-service>
-
-
-      <core-animated-pages selected="{{tab_idx}}"   transitions="cross-fade-all hero-transition" >
-      <section>
-
-        <template repeat="{{journey in data_items.journeys}}">
-            <journey-card journey="{{journey}}" on-show-waypoints="{{showWaypoints}}" on-save-waypoints="{{saveWaypoints}}"></journey-card>
-        </template>
-        </section>
-      <section><span>Waypoints</span>
-       <core-selector id="waypointSelector" on-core-activate="{{coreSelect}}">
-          <template repeat="{{ waypoint in data_items.journeys[tab_idx].waypoints }}">
-              <waypoint-card journey="{{data_items.journeys[tab_idx].name}}" waypoint="{{waypoint}}"></waypoint-card>
-          </template></div>
-         </template>
-       </core-selector>
-    </core-animated-pages>
-      <div layout horizontal>
-        <paper-button>Save</paper-button>
-        <paper-button>Reset</paper-button>
+            <template repeat="{{journey in data_items.journeys}}">
+                <journey-card journey="{{journey}}" on-show-waypoints="{{showWaypoints}}" on-save-waypoints="{{saveWaypoints}}"></journey-card>
+            </template>
+            </section>
+          <section><span>Waypoints</span>
+          <core-list>
+              <template repeat="{{ waypoint in data_items.journeys[tab_idx].waypoints }}">
+                  <waypoint-card journey="{{data_items.journeys[tab_idx].name}}" waypoint="{{waypoint}}"></waypoint-card>
+              </template></div>
+             </template>
+          </core-list>
+           </section>
+        </core-animated-pages>
+          <div layout horizontal>
+            <paper-button>Save</paper-button>
+            <paper-button>Reset</paper-button>
+          </div>
       </div>
 
-   </section>
-     </div>
-</div>
-    <paper-toast id="toast" class="capsule" text="Settings have been reset!"
-               duration="800"></paper-toast>
-  </core-header-panel>
+   </div>
 
+  </core-header-panel>
   </core-drawer-panel>
+
 </template>
   <script src="../js/main_page.js"></script>
 

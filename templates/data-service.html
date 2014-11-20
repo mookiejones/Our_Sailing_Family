@@ -1,6 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
-<link rel="import" href="../bower_components/core-localstorage/core-localstorage.html">
+<!--<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../bower_components/core-localstorage/core-localstorage.html"> -->
+<link rel="import" href="../bower_components/firebase-element/firebase-element.html">
 
 <!--
   `<post-service>` provides an API for a fake service --
@@ -13,9 +14,9 @@
 -->
 <polymer-element name="data-service" attributes="data saveData">
   <template>
-    <core-ajax id="ajax" auto url="../data/data.json" on-core-response="{{dataLoaded}}" on-core-error="{{dataError}}"  handleAs="json"></core-ajax>
-    <core-localstorage id="storage" name="data-items" value="{{data}}"></core-localstorage>
-
+    <firebase-element id="base" location="https://oursailingfamily.firebaseio.com/" data="{{data}}" keys="{{keys}}" on-data-changed="{{onDataChanged}}"></firebase-element>
+<!--    <core-ajax id="ajax" auto url="../data/data.json" on-core-response="{{dataLoaded}}" on-core-error="{{dataError}}"  handleAs="json"></core-ajax>
+    <core-localstorage id="storage" name="data-items" value="{{data}}"></core-localstorage> -->
   </template>
 </template>
   <script>
@@ -24,12 +25,24 @@
       this.data=[];
 
     },
+    observe:{
+      // dataChanged only if data is pointed at a new object
+      // changes to data's _properties or sub-properties are not observed
+      data: 'dataChanged',
+      // dataNameChanged called if  'data.name' changes
+      'data.name':'dataNameChanged'
+    },
     dataLoaded:function(){
-      if (this.$.storage.length>0){
-        this.data = this.$.storage.value;
-      }else {
-        this.data = this.$.ajax.response;
-      }
+      console.log('dataLoaded');
+      this.data = this.$.base.data;
+//      if (this.$.storage.length>0){
+//        this.data = this.$.storage.value;
+//      }else {
+//        this.data = this.$.ajax.response;
+//      }
+    },
+    onDataChanged:function(d){
+      console.log('dataChanged');
     },
     setJourney:function(journey_id){
       console.log('Journey Changed: ' + journey_id);
@@ -38,13 +51,13 @@
       console.log('error');
     },
     saveData:function(newdata){
-      this.$.storage.save();
-      return;
+//      this.$.storage.save();
+//      return;
       this.data = newdata;
-      this.$.ajax.method="PUT";
-      this.$.ajax.body=this.data;
+    //  this.$.ajax.method="PUT";
+  //    this.$.ajax.body=this.data;
 
-      this.$.ajax.go();
+//      this.$.ajax.go();
     }
 
 
