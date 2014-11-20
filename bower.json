@@ -1,9 +1,9 @@
 {
   "name": "OurSailingFamily",
-  "description": "",
-  "homepage": "",
+  "description": "AppEngine Application for OurSailingFamily",
+  "homepage": "oursailingfamily.com",
   "keywords": [],
-  "author": "",
+  "author": "Charles Berman",
   "private": true,
   "dependencies": {
     "polymer": "Polymer/polymer#master",
