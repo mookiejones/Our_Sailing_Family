@@ -52,9 +52,6 @@
         <label flex>Maintenance</label>
       </core-item>
        <core-item>
-        <paper-button raised class="colored" on-click="{{reset}}">
-          reset
-        </paper-button>
       </core-item>
     </core-header-panel>
     <core-header-panel main mode="waterfall">
@@ -67,7 +64,7 @@
     </core-toolbar>
     <div class="content" data-fade-selected="{{fadeSelected}}">
       <div id="main-content" layout horizontal>
-       <google-map id="googlemap" apiKey="AIzaSyAiwhwlkx_c3KRplTS-Vjz2xTRk55xjNNg" latitude="42.3144" longitude="-83.1763889" zoom="13"
+       <google-map id="googlemap" apiKey="AIzaSyAiwhwlkx_c3KRplTS-Vjz2xTRk55xjNNg" latitude="42.3144" longitude="-83.1763889"
      	 on-google-map-ready="{{mapReady}}" libraries="geometry">
             <template id="markersTemplate" repeat="{{waypoint in currentWaypoints}}">
              <google-map-marker on-tap="{{markerSelected}}" id={{waypoint.title}} latitude={{waypoint.lat}} longitude={{waypoint.lng}} title={{waypoint.title}} draggable="true"></google-map-marker>
@@ -79,21 +76,26 @@
              </data-service>
         <core-animated-pages selected="{{tab_idx}}" transitions="cross-fade-all hero-transition" >
           <section>
-
+          <core-scroll-header-panel layout center >
             <template repeat="{{journey in data_items.journeys}}">
                 <journey-card journey="{{journey}}" on-show-waypoints="{{showWaypoints}}" on-save-waypoints="{{saveWaypoints}}"></journey-card>
             </template>
+             </core-scroll-header-panel>
             </section>
           <section>
+          <core-scroll-header-panel layout center >
               <template repeat="{{ waypoint in data_items.journeys[tab_idx].waypoints }}">
                   <waypoint-card journey="{{data_items.journeys[tab_idx].name}}" waypoint="{{waypoint}}"></waypoint-card>
               </template>
-           </section>
-        </core-animated-pages>
-          <div layout horizontal>
+             </core-scroll-header-panel>
+               <div layout horizontal>
             <paper-button>Save</paper-button>
             <paper-button>Reset</paper-button>
           </div>
+         </section>
+
+        </core-animated-pages>
+
       </div>
 
    </div>

@@ -15,7 +15,7 @@
 <polymer-element name="data-service" attributes="data saveData">
   <template>
     <firebase-element id="base" location="https://oursailingfamily.firebaseio.com/" data="{{data}}" keys="{{keys}}" on-data-changed="{{onDataChanged}}"></firebase-element>
-<!--    <core-ajax id="ajax" auto url="../data/data.json" on-core-response="{{dataLoaded}}" on-core-error="{{dataError}}"  handleAs="json"></core-ajax> -->
+<!-- <core-ajax id="ajax" auto url="../data/data.json" on-core-response="{{dataLoaded}}" on-core-error="{{dataError}}"  handleAs="json"></core-ajax>  -->
     <core-localstorage id="storage" name="data-items" value="{{data}}"></core-localstorage>
   </template>
 </template>
@@ -23,6 +23,15 @@
   Polymer("data-service",{
     created:function(){
       this.data=[];
+
+    },
+    attached:function(){
+      console.log('attached');
+      this.$.storage.load();
+
+
+        this.data = this.$.storage.value;
+                  this.$.base.data=this.data;
 
     },
     observe:{
@@ -56,6 +65,7 @@
 //      return;
       this.data = newdata;
       this.$.base.data = newdata;
+      this.$.base.commit();
     //  this.$.ajax.method="PUT";
   //    this.$.ajax.body=this.data;
 

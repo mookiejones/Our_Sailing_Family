@@ -14,9 +14,9 @@
     :host {
       display: block;
       position: relative;
-      background-color: white;
-      padding: 5px;
-      width: 100%;
+//      background-color: white;
+//      padding: 5px;
+//      width: 100%;
       font-size: 1.2rem;
       font-weight: 300;
     }
@@ -41,11 +41,7 @@
       color: #fff;
     }
 
-    .card-header {
-      margin-bottom: 10px;
-    }
-    .card-header {
-  margin-bottom: 10px;}
+
 
 .paper-shadow-bottom{pointer-events:none}
 
@@ -60,10 +56,18 @@ polyfill-next-selector { content: '.card-header title'; }
 
 
 h2{
+  display:block;
     font-size: .7em;
-    width: 100%;
     font-weight: 400;
-    text-align: center;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: -0;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    margin-before:0.83;
+    margin-after: -0;
+    margin-start:0;
+    margin-end:0;
+
 }
 
 polyfill-next-selector { content: '.card-header name'; }
@@ -72,26 +76,48 @@ polyfill-next-selector { content: '.card-header name'; }
   border-radius: 50%;
   margin: 10px;
 }
-span.location{
 
+.location{
+    font-size: .7em;
+    width: 100%;
+
+     font-weight: 300;
 }
-
+h3{
+   display:block;
+   font-size: .7em;
+   font-weight: 400;
+  -webkit-margin-before: 0.83em;
+  -webkit-margin-after: -0;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+    margin-before:0.83;
+    margin-after: -0;
+    margin-start:0;
+    margin-end:0;
+}
+.latLng{
+  align-items:flex-end;
+  padding-bottom:10px;
+}
 </style>
     <paper-shadow id="shadow" class="waypoint-shadow"  z={{z}} >
-    <template if="{{open}}">
+  <div horizontal layout flex>
 
-  <core-icon class="red" icon="maps:place" ></core-icon></template> <span style="font-size:.8em;text-transform:uppercase;">{{journey}} </span>
-  <div horizontal layout style="display:inline-block;">
-
-        <div horizontal layout ><h2>Latitude:</h2><span class="location"> {{waypoint.lat | toFixed(3)}}</span>
-    <h2>Longitude:</h2><span class="location"> {{waypoint.lng| toFixed}}</span></div>
+        <template if="{{open}}"><core-icon class="red" icon="maps:place" ></core-icon></template>
+        <span style="font-size:.8em;text-transform:uppercase;vertical-align:top;font-weight:500;">{{journey}} </span>
+      <div vertical layout flex class="latLng" >
+        <div horizontal layout>
+          <h2>Latitude:    </h2><h3 > {{waypoint.lat | toFixed(3)}}</h3>
+        </div>
+        <div horizontal layout>
+          <h2>Longitude:   </h2><h3 > {{waypoint.lng | toFixed(3)}}</h3>
+        </div>
+      </div>
   </div>
-
 
   <template if="{{open}}">
   <div vertical layout>
-    <div horizontal layout center><h2>Latitude:</h2><span class="location"> {{waypoint.lat | toFixed(3)}}</span></div>
-    <div horizontal layout center><h2>Longitude:</h2><span class="location"> {{waypoint.lng| toFixed}}</span></div>
     <paper-button raised class="colored" on-tap={{onTap}}>Delete</paper-button>
   </div>
   </template>
@@ -110,24 +136,27 @@ span.location{
     },
      togglePanel:function(e,detail,sender){this.open=!this.open},
 
+
    openChanged:function(){this.$.shadow.z=2;this.onMouseOut()},
       toFixed: function(value, precision) {
           return Number(value).toFixed(precision);
       },
-  onMouseOver:function(e,detail,sender){
-    if(!this.open){this.$.shadow.z=1}
-    console.log('onMouseOver');
-  },
+    onMouseOver:function(e,detail,sender){
+    if(!this.open){
+      this.$.shadow.setZ(1);
+    }
+    }
+  ,
   onTap:function(e,detail,sender){
     this.open=true;
 
   },
 
+
    onMouseOut:function(e,detail,sender){
-     if(!this.open){this.$.shadow.z=0}
-
-   },
-
+     if(!this.open){this.$.shadow.setZ(0);
+     }
+}
 
   });
   </script>

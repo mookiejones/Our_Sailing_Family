@@ -297,6 +297,14 @@ function writeDebug(message){
 		// Get Map Object
 		googlemap = this.$.googlemap;
 
+
+	  // Change Zoom to saved value
+		if (this.data_items.zoom){
+  		this.$.googlemap.map.zoom = this.data_items.zoom;
+  		googlemap.map.zoom = this.data_items.zoom;
+  		console.log(	this.$.googlemap.map.zoom);
+		}
+
 		if (navigator.geolocation){
 		  navigator.geolocation.getCurrentPosition(function(position){
 		    var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -527,6 +535,7 @@ function writeDebug(message){
 
         },
       saveWaypoints:function(e,d,s){
+        this.data_items.zoom = this.$.googlemap.zoom;
           this.$.service.saveData(this.data_items);
           return;
           var d = new Array();
