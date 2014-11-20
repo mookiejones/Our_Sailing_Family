@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<!--<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
-<link rel="import" href="../bower_components/core-localstorage/core-localstorage.html"> -->
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../bower_components/core-localstorage/core-localstorage.html">
 <link rel="import" href="../bower_components/firebase-element/firebase-element.html">
 
 <!--
@@ -15,8 +15,8 @@
 <polymer-element name="data-service" attributes="data saveData">
   <template>
     <firebase-element id="base" location="https://oursailingfamily.firebaseio.com/" data="{{data}}" keys="{{keys}}" on-data-changed="{{onDataChanged}}"></firebase-element>
-<!--    <core-ajax id="ajax" auto url="../data/data.json" on-core-response="{{dataLoaded}}" on-core-error="{{dataError}}"  handleAs="json"></core-ajax>
-    <core-localstorage id="storage" name="data-items" value="{{data}}"></core-localstorage> -->
+<core-ajax id="ajax" auto url="../data/data.json" on-core-response="{{dataLoaded}}" on-core-error="{{dataError}}"  handleAs="json"></core-ajax>
+    <core-localstorage id="storage" name="data-items" value="{{data}}"></core-localstorage>
   </template>
 </template>
   <script>
@@ -34,12 +34,13 @@
     },
     dataLoaded:function(){
       console.log('dataLoaded');
-      this.data = this.$.base.data;
-//      if (this.$.storage.length>0){
-//        this.data = this.$.storage.value;
-//      }else {
-//        this.data = this.$.ajax.response;
-//      }
+
+      if (this.$.storage.length>0){
+        this.data = this.$.storage.value;
+      }else {
+        this.data = this.$.ajax.response;
+      }
+       this.$.base.data=this.data;
     },
     onDataChanged:function(d){
       console.log('dataChanged');
@@ -51,9 +52,10 @@
       console.log('error');
     },
     saveData:function(newdata){
-//      this.$.storage.save();
+      this.$.storage.save();
 //      return;
       this.data = newdata;
+      this.$.base.data = newdata;
     //  this.$.ajax.method="PUT";
   //    this.$.ajax.body=this.data;
 
