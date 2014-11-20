@@ -8,8 +8,7 @@
 <link rel="import"   href="../bower_components/paper-shadow/paper-shadow.html">
 <link rel="import"   href="../bower_components/paper-button/paper-button.html">
 
-<polymer-element name="waypoint-card" attributes="waypoint z"
-  on-tap="{{togglePanel}}" on-mouseover="{{onMouseOver}}" on-mouseout="{{onMouseOut}}" >
+<polymer-element name="waypoint-card" attributes="waypoint z journey" on-tap="{{togglePanel}}" on-mouseover="{{onMouseOver}}" on-mouseout="{{onMouseOut}}" >
   <template>
     <style>
     :host {
@@ -58,12 +57,7 @@ polyfill-next-selector { content: '.card-header title'; }
 }
 
 
-span.location{
-    font-size: .7em;
-    width: 100%;
-    font-weight: 300;
-    text-align: center;
-}
+
 
 h2{
     font-size: .7em;
@@ -83,11 +77,14 @@ polyfill-next-selector { content: '.card-header name'; }
     <paper-shadow id="shadow" class="waypoint-shadow"  z={{z}} >
     <template if="{{open}}">
 
-  <core-icon class="red" icon="maps:place" ></core-icon></template><span>Name: {{waypoint.name}} Title: {{waypoint.title}}</span>
+  <core-icon class="red" icon="maps:place" ></core-icon></template> <span style="font-size:.8em"> Journey:</span><span>{{journey}} </span>
+        <div horizontal layout center><h2>Latitude:</h2><span class="location"> {{waypoint.lat | toFixed(3)}}</span></div>
+        <div horizontal layout center><h2>Longitude:</h2><span class="location"> {{waypoint.lng| toFixed}}</span></div>
+
   <template if="{{open}}">
   <div vertical layout>
-    <div horizontal layout center><h2>Latitude:</h2><span class="location"> {{waypoint.lat}}</span></div>
-    <div horizontal layout center><h2>Longitude:</h2><span class="location"> {{waypoint.lng}}</span></div>
+    <div horizontal layout center><h2>Latitude:</h2><span class="location"> {{waypoint.lat | toFixed(3)}}</span></div>
+    <div horizontal layout center><h2>Longitude:</h2><span class="location"> {{waypoint.lng| toFixed}}</span></div>
     <paper-button raised class="colored" on-tap={{onTap}}>Delete</paper-button>
   </div>
   </template>
@@ -107,7 +104,9 @@ polyfill-next-selector { content: '.card-header name'; }
      togglePanel:function(e,detail,sender){this.open=!this.open},
 
    openChanged:function(){this.$.shadow.z=2;this.onMouseOut()},
-
+      toFixed: function(value, precision) {
+          return Number(value).toFixed(precision);
+      },
   onMouseOver:function(e,detail,sender){
     if(!this.open){this.$.shadow.z=1}
     console.log('onMouseOver');

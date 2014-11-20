@@ -50,28 +50,13 @@
       color: #fff;
     }
 
-    .card-header {
-      margin-bottom: 10px;
-    }
-    .card-header {
-  margin-bottom: 10px;}
 
-.paper-shadow-bottom{pointer-events:none}
-
-polyfill-next-selector { content: '.card-header title'; }
-.card-header ::content title {
-  margin: 0;
-  font-size: .7em;
-  font-weight: 300;
+paper-shadow{
+  padding:.33em;
+    pointer-events: none;
 }
 
 
-span.location{
-    font-size: .7em;
-    width: 100%;
-    font-weight: 300;
-    text-align: center;
-}
 
 h2{
     font-size: .7em;
@@ -80,18 +65,21 @@ h2{
     text-align: center;
 }
 
-polyfill-next-selector { content: '.card-header name'; }
-.card-header ::content name {
-  width: 70px;
-  border-radius: 50%;
-  margin: 10px;
-}
+        span{
+            font-weight:300;
+        }
+        .title{
+            font-weight: 200;
+        }
+        .title:hover{
+            font-weight:600;
+        }
 
 </style>
-    <paper-shadow id="shadow" class="waypoint-shadow"  z="{{z}}" >
+    <paper-shadow id="shadow"  z="{{z}}" >
     <template if="{{open}}">
       <core-icon class="red" icon="maps:place" ></core-icon>
-    </template><span style="font-weight: 200;">{{journey.name}}</span>
+    </template><span id="title" >{{journey.name}}</span>
   <template if="{{open}}">
   <div vertical layout>
     <paper-input disabled floatingLabel label="Created" value={{journey.created}}>{{journey.created}}</paper-input>
@@ -106,9 +94,11 @@ polyfill-next-selector { content: '.card-header name'; }
   <script>
   Polymer("journey-card",{
     z:0,
-    waypoint:null,
+      weight:200,
+    open:false,
+    mouseover:false,
     created:function(){
-     this.waypoint = null;
+
     },
     publish:{
         journey:{value:null,reflect:true},
@@ -116,7 +106,7 @@ polyfill-next-selector { content: '.card-header name'; }
     },
      togglePanel:function(e,detail,sender){
          this.open=!this.open
-         this.fire('journey-tap');
+         this.fire('show-waypoints');
      },
 
    openChanged:function(){this.$.shadow.setZ(2);this.onMouseOut()},
@@ -125,19 +115,22 @@ polyfill-next-selector { content: '.card-header name'; }
     if(!this.open){
       this.$.shadow.setZ(1);
     }
-    console.log('onMouseOver');
+      this.$.title.style.fontWeight="500";
   },
   onTap:function(e,detail,sender){
     this.open=true;
-
+      this.fire('show-waypoints');
   },
 
    onMouseOut:function(e,detail,sender){
      if(!this.open){this.$.shadow.setZ(0);
+      this.$.title.style.fontWeight="200";
+         this.fire('save-waypoints');
+
 
      }
 
-   },
+   }
 
 
   });

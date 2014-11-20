@@ -75,6 +75,7 @@ function WayPoint(latLng,map){
 		    strokeWeight: 3
 		  	}
 
+    var waypoints=[];
 	var dearborn = null;
 	var myhome = null;
 	var weatherLayer = null;
@@ -195,10 +196,11 @@ function writeDebug(message){
 
 
   Polymer("main-page",{
-      tab_idx:0,
+    tab_idx:0,
     tab_name:'Journeys',
     fontSize: 14,
     response:null,
+    currentWaypoints:[],
       get greeting(){
           writeDebug('get');
         return this.data;
@@ -206,6 +208,7 @@ function writeDebug(message){
      ready: function() {
        writeDebug('Debug set to True');
        this.data=[];
+         this.selectedJourney=null;
     },
 
 
@@ -349,7 +352,7 @@ function writeDebug(message){
     	});
 //     google.maps.event.addListener(googlemap.map, 'click', this.addMarker);
      google.maps.event.addListener(googlemap.map, 'click', this.addWaypoint);
-
+        this.currentWaypoints =  this.data_items.journeys[this.tab_idx].waypoints;
 },
 
     markerSelected:function(m){
@@ -514,9 +517,30 @@ function writeDebug(message){
 			  var infowindow = new google.maps.InfoWindow(options);
 			  googlemaps.map.setCenter(options.position);
 			},
-      handleWaypoints:function(event,detail,sender){
-          alert('waypoints changed');
-            writeDebug('waypoints changed');
-        }
+      showWaypoints:function(event,detail,sender){
+          this.$.toast.text = 'There are '+sender.journey.waypoints.length + ' in the journey ' + sender.journey.name;
+          this.$.toast.show();
+          this.currentWaypoints = sender.journey.waypoints;
+
+
+        },
+      saveWaypoints:function(e,d,s){
+          this.$.service.saveData(this.data_items);
+          return;
+          var d = new Array();
+
+          for(i=0;i<this.$.googlemap.markers.length;i++){
+              var mk = this.$.googlemap.markers[i];
+              var m=new Object();
+              m.id=this.data_items.journeys[this.tab_idx].waypoints[i].id;
+              m.lat= mk.latitude;
+              m.lng= mk.longitude;
+              d.push(m);
+          }
+
+          this.data_items.journeys[this.tab_idx].waypoints = d;
+
+      //   this.$.service.saveData(this.data_items);
+      }
 
     });

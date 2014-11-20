@@ -1,5 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../bower_components/core-localstorage/core-localstorage.html">
+
 <!--
   `<post-service>` provides an API for a fake service --
   _unquote_, the read-only social networking service!
@@ -9,21 +11,40 @@
   @demo
   @homepage http://www.polymer-project.org/docs/start/tutorial.html
 -->
-<polymer-element name="data-service" attributes="data">
+<polymer-element name="data-service" attributes="data saveData">
   <template>
-    <core-ajax id="ajax" auto url="../data/data.json" on-core-response="{{dataLoaded}}" handleAs="json"></core-ajax>
+    <core-ajax id="ajax" auto url="../data/data.json" on-core-response="{{dataLoaded}}" on-core-error="{{dataError}}"  handleAs="json"></core-ajax>
+    <core-localstorage id="storage" name="data-items" value="{{data}}"></core-localstorage>
+
   </template>
 </template>
   <script>
   Polymer("data-service",{
     created:function(){
       this.data=[];
+
     },
     dataLoaded:function(){
-      this.data=this.$.ajax.response;
+      if (this.$.storage){
+        this.data = this.$.storage.value;
+      }else {
+        this.data = this.$.ajax.response;
+      }
     },
     setJourney:function(journey_id){
       console.log('Journey Changed: ' + journey_id);
+    },
+    dataError:function(e,d,s){
+      console.log('error');
+    },
+    saveData:function(newdata){
+      this.$.storage.save();
+      return;
+      this.data = newdata;
+      this.$.ajax.method="PUT";
+      this.$.ajax.body=this.data;
+
+      this.$.ajax.go();
     }
 
 

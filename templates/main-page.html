@@ -80,10 +80,10 @@
 
      <google-map id="googlemap" apiKey="AIzaSyAiwhwlkx_c3KRplTS-Vjz2xTRk55xjNNg" latitude="42.3144" longitude="-83.1763889" zoom="13"
      	 on-google-map-ready="{{mapReady}}" libraries="geometry">
-<!--            <template repeat="{{waypoint in response.waypoints}}">
+            <template id="markersTemplate" repeat="{{waypoint in currentWaypoints}}">
              <google-map-marker on-tap="{{markerSelected}}" id={{waypoint.title}} latitude={{waypoint.lat}} longitude={{waypoint.lng}} title={{waypoint.title}} draggable="true"></google-map-marker>
             </template>
-    --> </google-map>
+     </google-map>
      <div id="side">
 
 
@@ -94,13 +94,12 @@
          <core-animated-pages selected="{{tab_idx}}" flex>
       <div>
         <template repeat="{{journey in data_items.journeys}}">
-            <journey-card journey="{{journey}}" on-journey-tap="{{handleWaypoints}}"></journey-card>
+            <journey-card journey="{{journey}}" on-show-waypoints="{{showWaypoints}}" on-save-waypoints="{{saveWaypoints}}"></journey-card>
         </template>
      </div>
       <div><span>Waypoints</span>
-          <template repeat="{{ journey in journeys }}">
-              <span><b>{{ journey }}</b></span>
-              <span>{{ name }}</span>
+          <template repeat="{{ waypoint in data_items.journeys[tab_idx].waypoints }}">
+              <waypoint-card journey="{{data_items.journeys[tab_idx].name}}" waypoint="{{waypoint}}"></waypoint-card>
           </template></div>
 
     </core-animated-pages>
