@@ -10,6 +10,7 @@
   width:40%;
   height:100vh;
 }
+
 sidebar-page{
   width:20%;
 }
@@ -33,7 +34,14 @@ sidebar-page{
   height: 100%;
   background-color: #f1f1f3;
 }
-
+.fit {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 420px;
+    }
 [drawer] core-toolbar {
   background-color: #4F7DC9;
   color: #fff;
@@ -42,6 +50,9 @@ sidebar-page{
 [main] core-toolbar {
   background-color: #526E9C;
   color: #fff;
+}
+core-animated-pages{
+  height:80vh;
 }
 paper-fab {
   background-color: #e0a30b;

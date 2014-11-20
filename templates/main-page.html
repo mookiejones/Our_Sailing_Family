@@ -91,24 +91,27 @@
          </data-service>
 
 
-         <core-animated-pages selected="{{tab_idx}}" flex>
-      <div>
+      <core-animated-pages selected="{{tab_idx}}"   transitions="cross-fade-all hero-transition" >
+      <section>
+
         <template repeat="{{journey in data_items.journeys}}">
             <journey-card journey="{{journey}}" on-show-waypoints="{{showWaypoints}}" on-save-waypoints="{{saveWaypoints}}"></journey-card>
         </template>
-     </div>
-      <div><span>Waypoints</span>
+        </section>
+      <section><span>Waypoints</span>
+       <core-selector id="waypointSelector" on-core-activate="{{coreSelect}}">
           <template repeat="{{ waypoint in data_items.journeys[tab_idx].waypoints }}">
               <waypoint-card journey="{{data_items.journeys[tab_idx].name}}" waypoint="{{waypoint}}"></waypoint-card>
           </template></div>
-
-    </core-animated-pages>
-       <core-selector id="waypointSelector" on-core-activate="{{coreSelect}}">
-            <template id="waypointTemplate" repeat="{{waypoint in response.waypoints}}">
-            <waypoint-card  waypoint={{waypoint}} ></waypoint-card>
          </template>
        </core-selector>
-   </div>
+    </core-animated-pages>
+      <div layout horizontal>
+        <paper-button>Save</paper-button>
+        <paper-button>Reset</paper-button>
+      </div>
+
+   </section>
      </div>
 </div>
     <paper-toast id="toast" class="capsule" text="Settings have been reset!"
