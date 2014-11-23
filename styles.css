@@ -1,0 +1,1437 @@
+/*nautical map background on top level pages  */
+#background
+{
+    background: rgb(219, 239, 255);
+    height: 100%;
+    width: 1008px;
+    font-size: 10pt;
+    font-family:Bodoni,Arial,Sans-Serif;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*added by CF for Admin functions */
+#blurb
+{
+    font-size: 10pt;
+    color: black;
+    background-color: transparent;
+    padding: 18px 28px 18px 18px;
+    text-align: left;
+    text-decoration: none;
+}
+#blurb a
+{
+    font-size: 10pt;
+    color: blue;
+    background-color: transparent;
+    text-align: left;
+    text-decoration: none;
+}
+#blurb a:link
+{
+    font-size: 10pt;
+    color: blue;
+    background-color: transparent;
+    text-align: left;
+    text-decoration: none;
+}
+#blurb a:visited
+{
+    font-size: 10pt;
+    color: blue;
+    background-color: transparent;
+    text-align: left;
+    text-decoration: none;
+}
+#blurb a:hover
+{
+    font-size: 10pt;
+    color: #00008b;
+    background-color: transparent;
+    text-align: left;
+    text-decoration: none;
+}
+
+.blurb
+{
+    font-size: 10pt;
+    color: black;
+    background-color: transparent;
+    padding: 2px 2px 2px 2px;
+    text-align: left;
+    text-decoration: none;
+}
+.blurb a
+{
+    font-size: 10pt;
+    color: blue;
+    background-color: transparent;
+    text-align: left;
+    text-decoration: none;
+}
+.blurb a:link
+{
+    font-size: 10pt;
+    color: blue;
+    background-color: transparent;
+    text-align: left;
+    text-decoration: none;
+}
+.blurb a:visited
+{
+    font-size: 10pt;
+    color: blue;
+    background-color: transparent;
+    text-align: left;
+    text-decoration: none;
+}
+.blurb a:hover
+{
+    font-size: 10pt;
+    color: #00008b;
+    background-color: transparent;
+    text-align: left;
+    text-decoration: none;
+}
+
+
+/*This tag necessary for the body of the webpages  	font-family: Bodoni, Arial, Sans-Serif; */
+body
+{
+    font-size: 9pt;
+    background-color: #F7F7E7;
+    position: relative;
+    padding-top: 0px;
+    text-align: left;
+}
+
+/*bodycenter is used to place the water background on the page*/
+#bodyCenter
+{
+    background-image: url(images/ShipBanner.jpg);
+    background-repeat: no-repeat;
+    background-color: #0d2461;
+    height: 90px;
+    padding-top: 0px;
+}
+
+/*Used for the body of the Administrative pages */
+#bodyCenterAdm
+{
+    background-image: url(/images/dark-water-blue-adm2.jpg);
+    padding-top: 0px;
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+}
+
+/*Used for the 6 banner category buttons that span the top of each page */
+#bodyTableTop
+{
+    background-image: url(/images/CategoryBackdrop.jpg);
+    background-repeat: no-repeat;
+    font-family: Bodoni, Arial, sans-serif;
+    color: white;
+    padding: 0px 0px 0px 0px;
+    font-size: 9pt;
+    font-weight: bold;
+    width: 1000px;
+    margin-left: 0px;
+    vertical-align: top;
+}
+#bodyTableTop a
+{
+    color: white;
+    text-decoration: none;
+}
+#bodyTableTop a:link
+{
+    color: white;
+    text-decoration: none;
+}
+#bodyTableTop a:visited
+{
+    color: white;
+    text-decoration: none;
+}
+#bodyTableTop a:hover
+{
+    color: silver;
+    text-decoration: none;
+}
+
+/*Used for the 6 banner category buttons that span the top of each page */
+#bodyTableTop2
+{
+    background-image: url(images/navbar_blue3.jpg);
+    background-repeat: no-repeat;
+    font-family: Bodoni, Arial, sans-serif;
+    color: white;
+    padding: 5px 0px 0px 0px;
+    margin-top: -5px;
+    font-size: 15pt;
+    width: 1000px;
+    margin-left: 0px;
+    vertical-align: middle;
+}
+
+#bodyTableTop2 a:hover
+{
+    border-right: none;
+    padding: 0px 8px 0px 8px;
+    color: silver;
+    text-decoration: none;
+}
+
+/*Used for the 6 banner category buttons that span the top of each page */
+.bodyTableTop2
+{
+    background-image: url(images/navbar_blue3.jpg);
+    background-repeat: no-repeat;
+    font-family: Bodoni, Arial, sans-serif;
+    color: white;
+    padding: 5px 0px 0px 0px;
+    margin-top: -5px;
+    font-size: 9pt;
+    font-weight: bold;
+    font-style: italic;
+    width: 1000px;
+    margin-left: 0px;
+    vertical-align: top;
+}
+
+.bodyTableTop2 a:hover
+{
+    border-right: none;
+    padding: 0px 8px 0px 8px;
+    color: silver;
+    text-decoration: none;
+}
+
+.bodyTableTop1
+{
+    border-right: none;
+    color: white;
+    text-decoration: none;
+    font-size: 9pt;
+    padding-top: 0px;
+    padding-right: 8px;
+    padding-bottom: 0px;
+    padding-left: 8px;
+}
+.bodyTableTop1 a:hover
+{
+    border-right: none;
+    padding: 0px 8px 0px 8px;
+    color: silver;
+    text-decoration: none;
+    font-size: 8pt;
+}
+
+.bodyTableTop1 hover
+{
+    border-right: none;
+    padding: 0px 8px 0px 8px;
+    color: silver;
+    text-decoration: none;
+    font-size: 8pt;
+}
+
+/*This style is applied to the breadcrumbs that are present on each content page */
+#Breadcrumbs
+{
+    text-decoration: none;
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 8pt;
+    color: #04089E;
+    padding-top: 5px;
+    padding-left: 5px;
+    margin: 0px;
+}
+#Breadcrumbs a
+{
+    color: #04089E;
+    text-decoration: none;
+}
+#Breadcrumbs a:link
+{
+    color: #04089E;
+    text-decoration: none;
+}
+#Breadcrumbs a:visited
+{
+    color: #25286D;
+    text-decoration: none;
+}
+#Breadcrumbs a:hover
+{
+    color: #000000;
+    text-decoration: none;
+}
+
+/*This style is used to diplay the page title with a strip of map background behind it.  Used on landing and content pages */
+#centertext
+{
+    text-decoration: none;
+    font-family: Bodoni, Arial, sans-serif;
+    background-image: url(images/bluetitlebar3.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    font-size: 16pt;
+    color: #000000;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    color: White;
+    text-align: center;
+    height: 30px;
+    width: 946px;
+}
+#centertext a
+{
+    color: #04089E;
+    text-decoration: none;
+}
+#centertext a:link
+{
+    color: #04089E;
+    text-decoration: none;
+}
+#centertext a:visited
+{
+    color: #25286D;
+    text-decoration: none;
+}
+#centertext a:hover
+{
+    color: #000000;
+    text-decoration: none;
+}
+
+/*This style is used to diplay the page title with a strip of map background behind it.  Used on landing and content pages */
+.centertext
+{
+    text-decoration: none;
+    font-family: Bodoni, Arial, sans-serif;
+    background-image: url(/images/center1.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    font-size: 12pt;
+    color: #000000;
+    padding-left: 5px;
+    text-align: center;
+}
+.centertext a
+{
+    color: #04089E;
+    text-decoration: none;
+}
+.centertext a:link
+{
+    color: #04089E;
+    text-decoration: none;
+}
+.centertext a:visited
+{
+    color: #25286D;
+    text-decoration: none;
+}
+.centertext a:hover
+{
+    color: #000000;
+    text-decoration: none;
+}
+
+/*This style is used to diplay the page title with a strip of blue behind it.  Used on landing and content pages */
+#centertextPage
+{
+    text-decoration: none;
+    font-family: Bodoni, Arial, sans-serif;
+    background-image: url(images/blueContentTitle_new.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    font-size: 16pt;
+    color: #000000;
+    padding-left: 0px;
+    padding-bottom: 5px;
+    padding-top: 2px;
+    color: White;
+    text-align: center;
+    height: 30px;
+    width: 770px;
+}
+
+/*This style is used to diplay the page title with a strip of map background behind it.  Used on landing and content pages */
+#content
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: black;
+    text-decoration: none;
+    margin-left: 0px;
+}
+#content a
+{
+    color: blue;
+    text-decoration: none;
+}
+#content a:link
+{
+    color: blue;
+    text-decoration: none;
+}
+#content a:visited
+{
+    color: #951B94;
+    text-decoration: none;
+}
+#content a:hover
+{
+    color: #00008b;
+}
+
+.content
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: black;
+    text-decoration: none;
+    margin-left: 0px;
+}
+.content a
+{
+    color: blue;
+    text-decoration: none;
+}
+.content a:link
+{
+    color: blue;
+    text-decoration: none;
+}
+.content a:visited
+{
+    color: #951B94;
+    text-decoration: none;
+}
+.content a:hover
+{
+    color: #00008b;
+}
+
+/*This style is used to diplay the page title with a strip of map background behind it.  Used on landing and content pages */
+#contentTable
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 12pt;
+    color: black;
+    text-decoration: none;
+    margin-left: 7px;
+    text-align: center;
+    font-weight: 600;
+}
+#contentTable a
+{
+    color: #00008b;
+    text-decoration: none;
+}
+#contentTable a:link
+{
+    color: #00008b;
+    text-decoration: none;
+}
+#contentTable a:visited
+{
+    color: #25286D;
+    text-decoration: none;
+}
+#contentTable a:hover
+{
+    color: #00008b;
+}
+
+/*Used for the search portion */
+.cssRadioButtons
+{
+    font-weight: normal;
+    font-size: 12px;
+    word-spacing: normal;
+    text-transform: none;
+    font-family: Microsoft Sans Serif, Verdana, Helvetica;
+}
+
+/*This style used in the footer only */
+#footer
+{
+    font-family: Bodoni, Arial, sans-serif;
+    background-color: #0d2461;
+    padding: 0px 0px 0px 0px;
+    width: 1000px;
+    height: 35px;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: text-top;
+    font-size: 8pt;
+    text-decoration: none;
+}
+#footer a
+{
+    border-right: solid 1px #FFFFFF;
+    color: #FFFFFF;
+    padding: 0px 10px 0px 10px;
+    text-decoration: none;
+}
+#footer a:link
+{
+    border-right: solid 1px #FFFFFF;
+    color: #FFFFFF;
+    padding: 0px 10px 0px 10px;
+    text-decoration: none;
+}
+#footer a:visited
+{
+    border-right: solid 1px #FFFFFF;
+    color: #FFFFFF;
+    padding: 0px 10px 0px 10px;
+    text-decoration: none;
+}
+#footer a:hover
+{
+    border-right: solid 1px #FFFFFF;
+    color: #FAF982;
+    padding: 0px 10px 0px 10px;
+    text-decoration: none;
+}
+
+/*This style used to make h1 category text smaller only */
+h1
+{
+    padding: 3px 0px 0px 0px;
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 20pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+h1 a
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 20pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+h1 a:link
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 20pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+h1 a:visited
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 20pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+h1 a:hover
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 20pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/*This style used to make h2 category text smaller only */
+h2
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 15pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+h2 a
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 15pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+h2 a:link
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 15pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+h2 a:visited
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 15pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+h2 a:hover
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 15pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/*This style used to make h3 category text smaller only */
+h3
+{
+    font-family: Bodoni, Arial, sans-serif;
+    padding: 0px 0px 0px 5px;
+    font-size: 12pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+h3 a
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 12pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+h3 a:link
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 12pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+h3 a:visited
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 12pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+h3 a:hover
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 12pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/*imageday is used to place the water background on the page*/
+#imageday
+{
+    background-image: url(/images/imageofdaybanner.gif);
+    background-repeat: no-repeat;
+}
+
+.imageday
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 13pt;
+    font-style: italic;
+    font-weight: bold;
+    color: #38357A;
+    text-decoration: none;
+}
+.imageday a
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 13pt;
+    color: #38357A;
+    text-decoration: none;
+}
+.imageday a:link
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 13pt;
+    color: #38357A;
+    text-decoration: none;
+}
+.imageday a:visited
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 13pt;
+    color: #38357A;
+    text-decoration: none;
+}
+.imageday a:hover
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 13pt;
+    color: silver;
+    text-decoration: none;
+}
+
+
+/* This is utilized on the ArticlesContent pages */
+#lblActive
+{
+    font-size: 12pt;
+}
+.lblActive
+{
+    font-size: 12pt;
+}
+
+/*This style is utilized within the blue left side found on content pages */
+#LeftSide3
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: .85em;
+    color: #0D1D4D;
+    vertical-align: top;
+    background-repeat: repeat-y;
+}
+#LeftSide3 a
+{
+    color: #0D1D4D;
+    text-decoration: none;
+}
+#LeftSide3 a:link
+{
+    color: #0D1D4D;
+    text-decoration: none;
+}
+#LeftSide3 a:visited
+{
+    color: #0D1D4D;
+    text-decoration: none;
+}
+#LeftSide3 a:hover
+{
+    color: silver;
+    text-decoration: none;
+}
+
+/*This style is utilized within the blue left side found only on ARTICLES pages */
+#LeftSide4
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: .85em;
+    color: #0D1D4D;
+    vertical-align: top;
+    background-color: #6B82B4;
+    border-right: 7px;
+    border-right-color: white;
+}
+#LeftSide4 a
+{
+    color: #0D1D4D;
+    text-decoration: none;
+    padding-left: 5px;
+}
+#LeftSide4 a:link
+{
+    color: #0D1D4D;
+    text-decoration: none;
+    padding-left: 5px;
+}
+#LeftSide4 a:visited
+{
+    color: #0D1D4D;
+    text-decoration: none;
+    padding-left: 5px;
+}
+#LeftSide4 a:hover
+{
+    color: silver;
+    text-decoration: none;
+    padding-left: 5px;
+}
+
+
+/*These a:links are used within the header for Home/About Us/ FAQ/ etc */
+#links
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 8pt;
+    width: 770px;
+    text-decoration: none;
+    padding: 0px 10px 0px 10px;
+    text-align: right;
+    vertical-align: middle;
+    margin-top: 5px;
+    padding-top: 5px;
+}
+#links a
+{
+    padding: 0px 10px 0px 10px;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-right: solid 1px #FFFFFF;
+}
+#links a:link
+{
+    padding: 0px 10px 0px 10px;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-right: solid 1px #FFFFFF;
+}
+#links a:visited
+{
+    padding: 0px 10px 0px 10px;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-right: solid 1px #FFFFFF;
+}
+#links a:hover
+{
+    color: #FAF982;
+}
+
+/*Used on home page to control the links under each of the three categories */
+#Main1
+{
+    font-family: Bodoni, Arial, sans-serif;
+    text-decoration: none;
+    font-size: 9pt;
+    color: #336699;
+    padding-top: 5px;
+    padding-left: 4px;
+}
+#Main1 a
+{
+    color: #336699;
+    text-decoration: none;
+}
+#Main1 a:link
+{
+    color: #336699;
+    text-decoration: none;
+}
+#Main1 a:visited
+{
+    color: #336699;
+    text-decoration: none;
+}
+#Main1 a:hover
+{
+    color: #000000;
+    text-decoration: none;
+}
+
+.Main1
+{
+    font-family: Bodoni, Arial, sans-serif;
+    text-decoration: none;
+    font-size: 9pt;
+    color: #336699;
+    padding-top: 5px;
+    padding-left: 4px;
+}
+.Main1 a
+{
+    color: #336699;
+    text-decoration: none;
+}
+.Main1 a:link
+{
+    color: #336699;
+    text-decoration: none;
+}
+.Main1 a:visited
+{
+    color: #336699;
+    text-decoration: none;
+}
+.Main1 a:hover
+{
+    color: #000000;
+    text-decoration: underline;
+}
+
+#Main2
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 9pt;
+    color: #336699;
+    background-image: url(images/greybox2.jpg);
+    background-repeat: repeat;
+    padding-top: 5px;
+    padding-left: 5px;
+    height: 200px;
+    width: 230px;
+}
+#Main2 a
+{
+    color: #336699;
+    font-size: 9pt;
+    text-align: left;
+}
+#Main2 a:link
+{
+    color: #336699;
+    text-decoration: none;
+    font-size: 9pt;
+    text-align: left;
+}
+#Main2 a:visited
+{
+    color: #336699;
+    text-decoration: none;
+    font-size: 9pt;
+    text-align: left;
+}
+#Main2 a:hover
+{
+    color: #000000;
+    text-decoration: underline;
+    font-size: 9pt;
+    text-align: left;
+}
+
+.Main2
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #336699;
+}
+.Main2 a
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #336699;
+    font-size: 8pt;
+}
+.Main2 a:link
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #336699;
+    text-decoration: none;
+    font-size: 8pt;
+}
+.Main2 a:visited
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #336699;
+    text-decoration: none;
+    font-size: 8pt;
+}
+.Main2 a:hover
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #000000;
+    text-decoration: underline;
+    font-size: 8pt;
+}
+
+/*This style is applied t the a:links found within the tables on Landing Pages for the six categories and the tables (Obtain and Resources) found on content pages */
+#MiddleList
+{
+    font-family: Bodoni, Arial, sans-serif;
+    text-decoration: none;
+    color: black;
+    font-size: 9pt;
+    margin: 0px;
+}
+#MiddleList a
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #000099;
+    text-decoration: none;
+    font-size: 9pt;
+}
+#MiddleList a:link
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #000099;
+    text-decoration: none;
+    font-size: 9pt;
+}
+#MiddleList a:visited
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #00008b;
+    text-decoration: none;
+    font-size: 9pt;
+}
+#MiddleList a:hover
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #000000;
+    text-decoration: none;
+    font-size: 9pt;
+}
+
+/*This style is applied t the a:links found within the tables on Landing Pages for the six categories and the tables (Obtain and Resources) found on content pages */
+.MiddleList
+{
+    font-family: Bodoni, Arial, sans-serif;
+    text-decoration: none;
+    color: black;
+    font-size: 9pt;
+    margin: 0px;
+}
+.MiddleList a
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #000099;
+    text-decoration: none;
+    font-size: 9pt;
+    padding: 0px 0px 0px 0px;
+}
+.MiddleList a:link
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #000099;
+    text-decoration: none;
+    font-size: 9pt;
+}
+.MiddleList a:visited
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #00008b;
+    text-decoration: none;
+    font-size: 9pt;
+}
+.MiddleList a:hover
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #000000;
+    text-decoration: none;
+    font-size: 9pt;
+}
+
+/*Relates to news article on the home page */
+#news
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 10pt;
+    color: blue;
+    text-align: left;
+    text-decoration: none;
+    padding: 0px 2px 2px 2px;
+}
+#news a
+{
+    font-size: 9pt;
+    color: blue;
+    text-decoration: none;
+}
+#news a:link
+{
+    font-size: 9pt;
+    color: blue;
+    text-decoration: none;
+}
+#news a:visited
+{
+    font-size: 9pt;
+    color: blue;
+    text-decoration: none;
+}
+#news a:hover
+{
+    font-size: 9pt;
+    color: #00008b;
+    text-decoration: none;
+}
+
+/*Relates to news article on the home page */
+.news
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 9pt;
+    color: black;
+    background-color: #EBE9E9;
+    text-align: left;
+    text-decoration: none;
+    padding: 0px 2px 2px 2px;
+    display: block;
+}
+.news a
+{
+    font-size: 9pt;
+    color: blue;
+    text-decoration: none;
+}
+.news a:link
+{
+    font-size: 9pt;
+    color: blue;
+    text-decoration: none;
+}
+.news a:visited
+{
+    font-size: 9pt;
+    color: blue;
+    text-decoration: none;
+}
+.news a:hover
+{
+    font-size: 9pt;
+    color: #00008b;
+    text-decoration: none;
+}
+
+/*This style applies to the Overview paragraphs found within content pages */
+#Overview
+{
+    font-family: Bodoni, Arial, sans-serif;
+    background-image: url(images/text-back.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    font-weight: 600;
+}
+
+.Overview
+{
+    font-family: Bodoni, Arial, sans-serif;
+    background-image: url(images/text-back.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    font-weight: 600;
+}
+
+/*This style applies to the Overview paragraphs found on the main pages of the 6 buttons pages */
+#Overview1
+{
+    font-family: Bodoni, Arial, sans-serif;
+    background-position: center;
+    background-color: #EBE9E9;
+    font-size: 10pt;
+    vertical-align: middle;
+    font-weight: 400;
+    padding: 5px 5px 5px 5px;
+}
+#Overview1 a
+{
+    font-size: 10pt;
+}
+#Overview1 a:link
+{
+    font-size: 10pt;
+}
+#Overview1 a:visited
+{
+    font-size: 10pt;
+}
+#Overview1 a:hover
+{
+    font-size: 10pt;
+}
+
+
+/*Used on the HOME PAGE Product List*/
+.Product
+{
+    font-family: Bodoni, Arial, sans-serif;
+    text-decoration: none;
+    background-image: url(images/titlebar4.jpg);
+    background-repeat: no-repeat;
+    font-size: 10pt;
+    font-weight: bold;
+    margin: 0px 0px 0px 0px;
+    color: WHITE;
+    text-align: left;
+    padding-top: 5px;
+}
+.Product a
+{
+    color: #336699;
+    text-decoration: none;
+    font-size: 10pt;
+}
+.Product a:link
+{
+    color: #336699;
+    text-decoration: none;
+    font-size: 10pt;
+}
+.Product a:visited
+{
+    color: #336699;
+    text-decoration: none;
+    font-size: 10pt;
+}
+.Product:hover
+{
+    color: #FAF982;
+    text-decoration: none;
+    font-size: 10pt;
+}
+
+/*This style is applied to the Categories found on the landing pages for each of the six categories and the tables on the content pages.  It puts a dark background/banner behind the title */
+#Resource
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-weight: bolder;
+    text-decoration: none;
+    font-size: 11pt;
+    color: #336699;
+    padding-top: 0px;
+    padding-left: 15px;
+}
+#Resource a
+{
+    color: #336699;
+    text-decoration: none;
+}
+#Resource a:link
+{
+    color: #336699;
+    text-decoration: none;
+}
+#Resource a:visited
+{
+    color: #25286D;
+    text-decoration: none;
+}
+#Resource a:hover
+{
+    color: #000000;
+    text-decoration: none;
+}
+
+/*This style is for the search button*/
+#searchstuff
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-weight: bolder;
+    text-decoration: none;
+    font-size: 11pt;
+    color: #336699;
+    width: 145px;
+    z-index: 103;
+    left: 360px;
+    position: absolute;
+    top: 0px;
+}
+
+/*This style is for the search text*/
+#searchtext
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-weight: bolder;
+    text-decoration: none;
+    font-size: 11pt;
+    color: #336699;
+    width: 200px;
+    z-index: 104;
+    left: 144px;
+    position: absolute;
+    top: 0px;
+}
+
+/*Used on the HOME PAGE*/
+#title
+{
+    font-family: Bodoni, Arial, sans-serif;
+    text-decoration: none;
+    font-size: 12pt;
+    font-weight: bold;
+    color: #336699;
+    margin: 0px 0px 0px 0px;
+    text-align: left;
+    padding-top: 15px;
+}
+#title a
+{
+    color: #336699;
+    text-decoration: none;
+}
+#title a:link
+{
+    color: #336699;
+    text-decoration: none;
+}
+#title a:visited
+{
+    color: #336699;
+    text-decoration: none;
+}
+#title a:hover
+{
+    color: black;
+    text-decoration: none;
+}
+
+/*Used on the administrative pages FOR ADMIN STUFF */
+.title
+{
+    font-family: Bodoni, Arial, sans-serif;
+    text-decoration: none;
+    font-size: 12pt;
+    font-weight: bold;
+    color: #336699;
+    margin: 0px 0px 0px 0px;
+    text-align: left;
+    padding-top: 10px;
+}
+.title a
+{
+    color: #336699;
+    text-decoration: none;
+}
+.title a:link
+{
+    color: #336699;
+    text-decoration: none;
+}
+.title a:visited
+{
+    color: #336699;
+    text-decoration: none;
+}
+.title a:hover
+{
+    color: #000000;
+    text-decoration: none;
+}
+
+/*This style applied to the home page to control the Resoure title */
+#title1
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 5px 0px 0px 5px;
+    text-align: left;
+}
+
+/*This style is applied to the Categories found on the landing pages for each of the six categories and the tables on the content pages.  It puts a dark background/banner behind the title */
+#Ttitle
+{
+    font-family: Bodoni, Arial, sans-serif;
+    font-size: 12pt;
+    color: #25286D;
+    margin: 0px;
+    padding-left: 0px;
+    font-weight: 600;
+    padding-bottom: 5px;
+    padding-top: 10px;
+}
+#Ttitle a
+{
+    color: #ffffff;
+    font-size: 12pt;
+}
+#Ttitle a:link
+{
+    color: #ffffff;
+    font-size: 12pt;
+}
+#Ttitle a:visited
+{
+    color: #ffffff;
+    font-size: 12pt;
+}
+#Ttitle a:hover
+{
+    color: #FAF982;
+    font-size: 12pt;
+}
+
+.Ttitle
+{
+    font-size: 12pt;
+    font-family: Bodoni, Arial, sans-serif;
+    color: #25286D;
+    margin: 0px;
+    padding-left: 0px;
+    font-weight: 600;
+    font-style: italic;
+    padding-bottom: 5px;
+    padding-top: 10px;
+}
+.Ttitle a
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #25286D;
+    font-size: 12pt;
+    padding-bottom: 5px;
+    padding-top: 10px;
+}
+.Ttitle a:link
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #25286D;
+    font-size: 12pt;
+}
+.Ttitle a:visited
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #25286D;
+    font-size: 12pt;
+}
+.Ttitle a:hover
+{
+    font-family: Bodoni, Arial, sans-serif;
+    color: #25286D;
+    font-size: 12pt;
+}
+
+/*Used for the introductory article on the home page */
+#welcome
+{
+    font-family: Bodoni, Arial, sans-serif;
+    text-decoration: none;
+    text-align: left;
+    font-size: .94em;
+    color: black;
+    padding-left: 18px;
+    padding-top: 20px;
+    padding-right: 43px;
+}
+
+.style5
+{
+    color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+}
+
+.style5 a
+{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+.style5 a:hover
+{
+    color: #CCCCCC;
+}
+
+.style7
+{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #FFFFFF;
+    font-size: 10px;
+}
+
+.style7 a
+{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #FFFFFF;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+.style7 a:hover
+{
+    color: #CCCCCC;
+}
+
+.style8
+{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #FFFFFF;
+    font-size: 11px;
+}
+
+.style8 a
+{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #FFFFFF;
+    font-size: 11px;
+    text-decoration: none;
+}
+.style8 a:hover
+{
+    color: #CCCCCC;
+}
+body
+{
+    background-color: #EEEEEE;
+}
+
+.CtrlPage1_lblContentBody
+{
+    font-size: 10pt;
+    text-align: left;
+}

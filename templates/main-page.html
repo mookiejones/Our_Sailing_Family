@@ -29,8 +29,10 @@
 <link rel="import" href="../bower_components/core-animated-pages/core-animated-pages.html">
 <link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
 <link rel="import" href="../bower_components/core-list/core-list.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-action-dialog.html">
 <link rel="import" href="data-service.html">
 <link rel="import" href="map-page.html">
+<link rel="import" href="create-journey-dialog.html">
 <link rel="import" href="../bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
 <polymer-element name="main-page">
 <template>
@@ -81,6 +83,9 @@
                 <journey-card journey="{{journey}}" on-show-waypoints="{{showWaypoints}}" on-save-waypoints="{{saveWaypoints}}"></journey-card>
             </template>
              </core-scroll-header-panel>
+              <div layout horizontal>
+                  <paper-button on-tap="{{ createServiceJourney }}" raised>Add</paper-button>
+              </div>
             </section>
           <section>
           <core-scroll-header-panel layout center >
@@ -99,7 +104,7 @@
       </div>
 
    </div>
-
+        <create-journey-dialog id="dialog" on-create-journey="{{addNewJourney}}" backdrop></create-journey-dialog>
   </core-header-panel>
   </core-drawer-panel>
 

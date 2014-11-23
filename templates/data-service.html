@@ -12,9 +12,9 @@
   @demo
   @homepage http://www.polymer-project.org/docs/start/tutorial.html
 -->
-<polymer-element name="data-service" attributes="data saveData">
+<polymer-element name="data-service" attributes="data saveData createJourney">
   <template>
-    <firebase-element id="base" location="https://oursailingfamily.firebaseio.com/" data="{{data}}" keys="{{keys}}" on-data-changed="{{onDataChanged}}"></firebase-element>
+    <firebase-element id="base" location="https://oursailingfamily.firebaseio.com/" createJourney="{{ createJourney }}" data="{{data}}" keys="{{keys}}" on-data-changed="{{onDataChanged}}"></firebase-element>
 <core-ajax id="ajax"  url="../data/data.json" on-core-response="{{dataLoaded}}" on-core-error="{{dataError}}"  handleAs="json"></core-ajax>
     <core-localstorage id="storage" name="data-items" value="{{data}}"></core-localstorage>
   </template>
@@ -25,6 +25,7 @@
       this.data=[];
 
     },
+
     attached:function(){
       console.log('attached');
       this.$.storage.load();
@@ -38,9 +39,13 @@ if (this.$.storage.value){
                   }
 
     },
+      publish:{
+        createJourney:'createServiceJourney'
+      },
     observe:{
       // dataChanged only if data is pointed at a new object
       // changes to data's _properties or sub-properties are not observed
+      createJourney:'createServiceJourney',
       data: 'dataChanged',
       // dataNameChanged called if  'data.name' changes
       'data.name':'dataNameChanged'
@@ -80,7 +85,13 @@ if (this.$.storage.value){
   //    this.$.ajax.body=this.data;
 
 //      this.$.ajax.go();
-    }
+    },
+      createServiceJourney:function(name){
+          this.$.ajax.url="/?journey=";
+          this.$.ajax.body=name;
+          this.$.ajax.method="POST";
+          this.$.ajax.go();
+      }
 
 
   });

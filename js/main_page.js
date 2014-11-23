@@ -84,6 +84,7 @@ function WayPoint(latLng,map){
 	var marineMap;
 	var markers;
 	var route=[];
+    var dataservice=null;
 	var poly;
     var googlemap=null;
 	var result;
@@ -199,6 +200,7 @@ function writeDebug(message){
     tab_idx:0,
     tab_name:'Journeys',
     fontSize: 14,
+      dataservice:null,
     response:null,
     currentWaypoints:[],
       get greeting(){
@@ -210,6 +212,11 @@ function writeDebug(message){
        this.data=[];
          this.selectedJourney=null;
     },
+
+      attached:function(){
+        dataservice = this.$.service;
+          this.dataservice = this.$.service;
+      },
 
 
       updateRoute: function(){
@@ -547,6 +554,17 @@ function writeDebug(message){
           this.data_items.journeys[this.tab_idx].waypoints = d;
 
       //   this.$.service.saveData(this.data_items);
+      },
+      addNewJourney:function(name){
+          this.dataservice.createServiceJourney(this.$.dialog.journeyName);
+      },
+      createServiceJourney:function(){
+          var name = this.$.dialog.showDialog();
       }
+
+      /*,
+      createServiceJourney:function(){
+          this.dataservice.createJourney(this.$.dialog.journeyName);
+      }*/
 
     });

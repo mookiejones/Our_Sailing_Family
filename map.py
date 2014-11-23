@@ -1,17 +1,20 @@
 __author__ = 'mookie'
 __author__ = 'mookie'
 import jinja2
+import json
+import cgi
 import os
 import webapp2
 import urllib
 import datetime
-
+import logging
 from google.appengine.api import app_identity
 from google.appengine.api import channel
 from google.appengine.api import users
 
 from google.appengine.ext import ndb
-
+from rest_gae import *
+from rest_gae.users import UserRESTHandler
 
 from google.appengine.api import memcache
 from google.appengine.api import urlfetch
@@ -29,8 +32,10 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+DEFAULT_JOURNEY='default_journey'
 
-
+def journey_key(journey_name=DEFAULT_JOURNEY):
+    return ndb.Key('Journey',journey_name)
 
 
 #model for connected clients
@@ -68,6 +73,18 @@ class Location(webapp2.RequestHandler):
 
             for key in ch_keys:
                 channel.send_message(str(key.ch_key),broadcast_location)
+
+
+class Journey(ndb.Model):
+    user=ndb.UserProperty()
+    name=ndb.StringProperty(indexed=False)
+    date = ndb.DateTimeProperty(auto_now_add=True)
+    owner = ndb.KeyProperty(kind='User')
+
+    class RESTMeta:
+        user_owner_property='owner'# When a new instance is created,this property will be set to the logged in user
+        include_output_properties=['name']
+
 
 class MessageNDB(ndb.Model):
   user = ndb.StringProperty()
@@ -140,9 +157,8 @@ class DeleteMess(webapp2.RequestHandler):
 
 class MainPage(webapp2.RequestHandler):
   def get(self):
-
-
-
+    journeys_query=Journey.query(ancestor=journey_key()).order(-Journey.date)
+    journeys=journeys_query.fetch(10)
     #get user and login
     usr = users.get_current_user()
     if not usr:
@@ -170,6 +186,19 @@ class MainPage(webapp2.RequestHandler):
                         }
       template = JINJA_ENVIRONMENT.get_template('index.html')
       self.response.write(template.render(template_values))
+  def post(self):
+      journey=Journey(parent=journey_key())
+      try:
+
+          if users.get_current_user():
+              journey.user=users.get_current_user()
+              journey.name=self.request.body
+              journey.put()
+      except Exception,e:
+          logging.info('failed')
+
+
+
 
 application = webapp2.WSGIApplication([
     ('/', MainPage),
