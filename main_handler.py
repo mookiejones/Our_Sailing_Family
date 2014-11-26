@@ -16,22 +16,21 @@
 
 __author__ = 'charles.heath.berman@gmail.com (Charles Berman)'
 
-
 import io
-import jinja2
 import logging
 import os
-import webapp2
 
+import jinja2
+import webapp2
 from google.appengine.api import memcache
 from google.appengine.api import urlfetch
-
+from google.appengine.api import users
 import httplib2
+
 from apiclient import errors
 from apiclient.http import MediaIoBaseUpload
 from apiclient.http import BatchHttpRequest
 from oauth2client.appengine import StorageByKeyName
-
 from model import Credentials
 import util
 
@@ -39,27 +38,6 @@ import util
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
-TEST_HTML = """
-<article class='auto-paginate'>
-<h2 style="background-color:blue;">Did you know?<h2>
-<p style="background-color:white;color:black;">
-blah blah blah blah blah</p>
-</article>
-"""
-
-PAGINATED_HTML = """
-<article class='auto-paginate'>
-<h2 class='blue text-large'>Did you know...?</h2>
-<p>Cats are <em class='yellow'>solar-powered.</em> The time they spend
-napping in direct sunlight is necessary to regenerate their internal
-batteries. Cats that do not receive sufficient charge may exhibit the
-following symptoms: lethargy, irritability, and disdainful glares. Cats
-will reactivate on their own automatically after a complete charge
-cycle; it is recommended that they be left undisturbed during this
-process to maximize your enjoyment of your cat.</p><br/><p>
-For more cat maintenance tips, tap to view the website!</p>
-</article>
-"""
 
 
 class _BatchCallback(object):
@@ -80,8 +58,7 @@ class _BatchCallback(object):
       self.success += 1
     else:
       self.failure += 1
-      logging.error(
-          'Failed to insert item for user %s: %s', request_id, exception)
+      logging.error('Failed to insert item for user %s: %s', request_id, exception)
 
 
 class MainHandler(webapp2.RequestHandler):
@@ -95,7 +72,7 @@ class MainHandler(webapp2.RequestHandler):
     # self.mirror_service is initialized in util.auth_required.
     try:
       template_values['contact'] = self.mirror_service.contacts().get(
-        id='python-quick-start').execute()
+        id='sailing-project').execute()
     except errors.HttpError:
       logging.info('Unable to find Python Quick Start contact.')
 
@@ -117,6 +94,9 @@ class MainHandler(webapp2.RequestHandler):
   def get(self):
     """Render the main page."""
     # Get the flash message and delete it.
+    user = users.get_current_user()
+
+
     message = memcache.get(key=self.userid)
     memcache.delete(key=self.userid)
     self._render_template(message)
@@ -164,6 +144,7 @@ class MainHandler(webapp2.RequestHandler):
     collection = self.request.get('subscriptionId')
     self.mirror_service.subscriptions().delete(id=collection).execute()
     return 'Application has been unsubscribed.'
+
 
   def _insert_item(self):
     """Insert a timeline item."""

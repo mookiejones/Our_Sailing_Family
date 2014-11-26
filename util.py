@@ -18,21 +18,36 @@ __author__ = 'charles.heath.berman@gmail.com (Charles Berman)'
 
 
 from urlparse import urlparse
-
+import logging
 import httplib2
 from apiclient.discovery import build
+from google.appengine.api import users
+from google.appengine.api import memcache
+from google.appengine.ext.webapp import template
+from oauth2client.appengine import oauth2decorator_from_clientsecrets
 from oauth2client.appengine import StorageByKeyName
 from oauth2client.client import AccessTokenRefreshError
 import sessions
-
+import os
 from model import Credentials
 
+# CLIENT_SECRETS, name of a file containing the OAuth 2.0 information for this
+# application, including client_id and client_secret, which may be downloaded
+# from API Access tab on the Google APIs Console <http://code.google.com/apis/console>
+CLIENT_SECRETS = os.path.join(os.path.dirname(__file__), 'client_secrets.json')
 
 # Load the secret that is used for client side sessions
 # Create one of these for yourself with, for example:
 # python -c "import os; print os.urandom(64)" > session.secret
 SESSION_SECRET = open('session.secret').read()
 
+http = httplib2.Http(memcache)
+user_service = build('plus','v1',http=http)
+decorator = oauth2decorator_from_clientsecrets(
+    CLIENT_SECRETS,
+    scope="https://www.googleapis.com/auto/plus.me",
+    message="couldnt get user"
+)
 
 def get_full_url(request_handler, path):
   """Return the full url from the provided request handler and path."""
@@ -81,10 +96,16 @@ def create_service(service, version, creds=None):
 
 def auth_required(handler_method):
   """A decorator to require that the user has authorized the Glassware."""
-
+  @decorator.oauth_aware
   def check_auth(self, *args):
     self.userid, self.credentials = load_session_credentials(self)
     self.mirror_service = create_service('mirror', 'v1', self.credentials)
+
+
+
+#    http = decorator.http()
+#    mePerson = self.user_service.people().get(userId='me').execute(http=http)
+
     # TODO: Also check that credentials are still valid.
     if self.credentials:
       try:

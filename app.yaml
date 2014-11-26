@@ -24,11 +24,14 @@ handlers:
 - url: /data
   static_dir: data
 
+- url: /static
+  static_dir: static
+
 - url: /templates
   static_dir: templates
 
 - url: .*
-  script: map.application
+  script: main.app
 
 - url: /_ah/mail/.+
   script: handle_incoming_email.app

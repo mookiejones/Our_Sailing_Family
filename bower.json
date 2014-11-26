@@ -13,6 +13,7 @@
     "font-roboto": "Polymer/font-roboto#latest",
     "google-map": "GoogleWebComponents/google-map#latest",
     "core-ajax": "Polymer/core-ajax#latest",
+    "ajax-form":"garstasio/ajax-form#latest",
     "firebase-element": "Polymer/firebase-element",
     "core-elements": "Polymer/core-elements#latest",
     "point-overlay": "brendankenny/point-overlay#latest",
