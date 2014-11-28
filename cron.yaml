@@ -1,0 +1,12 @@
+cron:
+- description: daily summary job
+  url: /tasks/summary
+  schedule: every 24 hours
+  
+- description: hourly summary job
+  url: /tasks/hourly
+  schedule: every 1 hours
+
+- description: hello... is it me you're looking for?
+  url: /tasks/mail
+  schedule: every 30 minutes
