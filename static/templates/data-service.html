@@ -1,0 +1,101 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../bower_components/core-ajax/core-ajax.html"> -->
+ <link rel="import" href="../../bower_components/core-localstorage/core-localstorage.html">
+<link rel="import" href="../../bower_components/firebase-element/firebase-element.html">
+
+<!--
+  `<post-service>` provides an API for a fake service --
+  _unquote_, the read-only social networking service!
+  Provides a very simple API: `posts` returns the list of posts.
+  `setFavorite` pretends to persist a user's favorite choice.
+  @element data-service
+  @demo
+  @homepage http://www.polymer-project.org/docs/start/tutorial.html
+-->
+<polymer-element name="data-service" attributes="data saveData createJourney user">
+  <template>
+    <firebase-element id="base" location="https://oursailingfamily.firebaseio.com/" createJourney="{{ createJourney }}" data="{{data}}" keys="{{keys}}" on-data-changed="{{onDataChanged}}"></firebase-element>
+<core-ajax id="ajax"  url="../data/data.json" on-core-response="{{dataLoaded}}" on-core-error="{{dataError}}"  handleAs="json"></core-ajax>
+    <core-localstorage id="storage" name="data-items" value="{{data}}"></core-localstorage>
+  </template>
+</template>
+  <script>
+  Polymer("data-service",{
+      user:null,
+    created:function(){
+      this.data=[];
+
+    },
+
+    attached:function(){
+      console.log('attached');
+      this.$.storage.load();
+
+if (this.$.storage.value){
+        this.data = this.$.storage.value;
+                  this.$.base.data=this.data;}
+                  else
+                  {
+                    this.$.ajax.go();
+                  }
+
+    },
+      publish:{
+          user:{value:null,reflect:true},
+            createJourney:'createServiceJourney'
+      },
+    observe:{
+      // dataChanged only if data is pointed at a new object
+      // changes to data's _properties or sub-properties are not observed
+      createJourney:'createServiceJourney',
+      data: 'dataChanged',
+      // dataNameChanged called if  'data.name' changes
+      'data.name':'dataNameChanged'
+    },
+    dataLoaded:function(){
+      console.log('dataLoaded');
+
+      if (this.$.storage.value&&this.$.storage.value.journeys){
+        this.data = this.$.storage.value;
+      }else {
+
+        var d = this.$.ajax.response;
+        this.data = d;
+        this.$.storage.value = d;
+        this.$.storage.save();
+        this.data = d;
+      }
+
+       this.$.base.data=this.data;
+    },
+    onDataChanged:function(d){
+      console.log('dataChanged');
+    },
+    setJourney:function(journey_id){
+      console.log('Journey Changed: ' + journey_id);
+    },
+    dataError:function(e,d,s){
+      console.log('error');
+    },
+    saveData:function(newdata){
+      this.$.storage.save();
+//      return;
+      this.data = newdata;
+      this.$.base.data = newdata;
+      this.$.base.commit();
+    //  this.$.ajax.method="PUT";
+  //    this.$.ajax.body=this.data;
+
+//      this.$.ajax.go();
+    },
+      createServiceJourney:function(name){
+          this.$.ajax.url="/?journey=";
+          this.$.ajax.body=name;
+          this.$.ajax.method="POST";
+          this.$.ajax.go();
+      }
+
+
+  });
+  </script>
+</polymer-element>

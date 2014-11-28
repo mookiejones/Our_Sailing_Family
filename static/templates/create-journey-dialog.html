@@ -1,0 +1,34 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-action-dialog.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<polymer-element name="create-journey-dialog"   heading="Create new journey">
+  <template>
+    <style>
+    </style>
+      <paper-action-dialog id="dialog">
+
+
+        <p>Create a new name for your journey.</p>
+          <paper-input floating label="Name" value="{{ journeyName }}"></paper-input>
+        <paper-button dismissive>Cancel</paper-button>
+        <paper-button affirmative autofocus on-tap="{{createServiceJourney}}" title="journeyName">Accept</paper-button>
+      </paper-action-dialog>
+
+      </template>
+     <script>
+      Polymer("create-journey-dialog",{
+          journeyName:'JourneyName',
+          ready:function(){},
+          attached:function(){},
+          createServiceJourney:function(){
+              this.fire('create-journey',{msg:this.JourneyName});
+          },
+          showDialog:function(){
+           this.$.dialog.toggle();
+          }
+
+      })
+
+          </script>
+    </polymer-element>

@@ -1,0 +1,43 @@
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
+
+
+<polymer-element name="sidebar-page" attributes="tab_idx selected">
+<template>
+<style>
+  #tabs {
+  width: 100%;
+  margin: 0;
+  padding:0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-transform: uppercase;
+}
+paper-tabs{
+//	  background-color: #00bcd4;
+      color: #fff;
+      box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2);
+}
+ paper-tabs.transparent-teal {
+      background-color: transparent;
+      color: #00bcd4;
+      box-shadow: none;
+    }
+
+    paper-tabs.transparent-teal::shadow #selectionBar {
+      background-color: #00bcd4;
+    }
+
+    paper-tabs.transparent-teal paper-tab::shadow #ink {
+      color: #00bcd4;
+    }
+</style>
+<paper-tabs id="tabs" selectedIndex="{{tab_idx}}" selected="{{selected}}" self-end>
+  <paper-tab id="journeys-tab" name="Journeys">Journeys</paper-tab>
+  <paper-tab id="waypoints-tab" name="Waypoints">Waypoints</paper-tab>
+</paper-tabs>
+</template>
+  <script src="../js/sidebar_page.js"></script>
+</polymer-element>

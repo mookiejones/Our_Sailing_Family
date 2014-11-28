@@ -1,0 +1,100 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/google-map/google-map.html">
+
+<polymer-element name="map-page" id="googlemap" apiKey="AIzaSyAiwhwlkx_c3KRplTS-Vjz2xTRk55xjNNg" on-google-map-ready="{{mapReady}}"  latitude="42.3144" longitude="-83.1763889" extends="google-map" libraries="geometry">
+<template>
+  <style>
+    :host {
+  display: block;
+  height: 100vh;
+  width:100%;
+
+    }
+  </style>
+</template>
+<script>
+	var googlemap=null;
+Polymer("map-page",{
+
+          getMapOptions: function() {
+            var mapOptions = this.super();
+            mapOptions["streetViewControl"] = false;
+            return mapOptions;
+          },
+          mapReady: function(){
+		// Get Map Object
+		googlemap = this.$.googlemap;
+
+/*
+	  // Change Zoom to saved value
+		if (this.data_items.zoom){
+      googlemap.map.setZoom(this.data_items.zoom);
+		}
+*/
+		if (navigator.geolocation){
+		  navigator.geolocation.getCurrentPosition(function(position){
+		    var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+		    googlemap.map.setCenter(pos);
+
+		  },function(){
+		    handleNoGeoLocation(true);
+		  });
+		}else{
+		  handleNoGeoLocation(false);
+		}
+
+		var mapOptions = {
+			disableDefaultUI: false,
+			 panControl: true,
+			  zoomControl: true,
+			  mapTypeControl: true,
+			  scaleControl: true,
+			  streetViewControl: true,
+			  streetViewControlOptions: {
+			        position: google.maps.ControlPosition.RIGHT_BOTTOM
+			    },
+			  overviewMapControl: true,
+			tilt: 45,
+			zoomControlOptions: {
+			    style: google.maps.ZoomControlStyle.DEFAULT
+			  }
+
+
+	};
+
+	    googlemap.map.setOptions(mapOptions);
+
+        geocoder = new google.maps.Geocoder();
+
+
+		// Get Map Markers
+		markers = this.$.googlemap.markers;
+
+		// set places
+		dearborn = new google.maps.LatLng(42.3144,  -83.1763889);
+		myhome = new google.maps.LatLng(42.3144,  -83.1763889);
+
+		poly = new google.maps.Polyline(polyOptions);
+		poly.setMap(googlemap.map);
+
+
+
+   markers.forEach(function(m){
+    google.maps.event.addListener(m,'position_changed',function(m){
+    	markerMoved(m);
+    	}
+    	)
+    	});
+//     google.maps.event.addListener(googlemap.map, 'click', this.addMarker);
+     google.maps.event.addListener(googlemap.map, 'click', this.addWaypoint);
+        this.currentWaypoints =  this.data_items.journeys[this.tab_idx].waypoints;
+},
+
+    markerSelected:function(m){
+    	console.log('markerSelected');
+    }
+
+        });
+</script>
+</polymer-element>

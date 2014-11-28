@@ -1,0 +1,280 @@
+<!doctype html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE
+The complete set of authors may be found at http://polymer.github.io/AUTHORS
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>NewMap</title>
+
+
+    <meta http-equiv="content-type" content="text/html" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" href="styles.css">
+	  <link rel="stylesheet" href="static/css/catalog.css">
+
+	 <style type="text/css">
+        html
+        {
+            height: 100%;
+        }
+        body
+        {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            text-align: center;
+        }
+	</style>
+
+		<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3&client=gme-noaa&channel=OCS.NOS.MCD.Catalog&sensor=false&libraries=geometry"></script>
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script src="static/js/catalog.js"></script>
+</head>
+    <div id="background">
+
+		<!-- top of header -->
+
+		<div style="text-align: right; background-repeat: no-repeat; width: 100%; height:116px; background: url(http://www.nauticalcharts.noaa.gov/images/OCS-subpage-art.gif);">
+            <table border="0" width="100%">
+                <tr>
+                    <td style="width:72%;" align="left">
+                        <a href="http://www.nauticalcharts.noaa.gov/index.html">
+                            <img src="http://nauticalcharts.noaa.gov/images/transparency.gif"  style="border:0;" width="398" height="100"
+                               alt="home" /></a>&nbsp;
+                    </td>
+                    <td width="28%" valign="bottom" align="right" class="style7">
+                        <form method="get" action="http://search.usa.gov/search" style="margin-bottom: 0;">
+                        <div>
+                        <a href="http://www.nauticalcharts.noaa.gov/index.html">HOME</a> | <a
+                            href="http://www.nauticalcharts.noaa.gov/staff/aboutus.htm">ABOUT US</a>
+                        | <a href="http://www.nauticalcharts.noaa.gov/staff/contact.htm">CONTACT</a>
+                        | <a href="http://www.nauticalcharts.noaa.gov/nsd/reps.htm">REGIONAL MANAGERS</a>
+                        <input type="hidden" name="affiliate" value="nauticalcharts.noaa.gov" />
+                        <input type="hidden" name="v:project" value="firstgov" />
+                        <label for="query-field">
+                        </label>
+                        <input name="query" type="text" id="query-field" size="29" />
+                        <input type="submit" value="Search" />
+                        </div>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <!-- you can use tables or divs for the overall layout -->
+        <!-- Begin HTML expected by code -->
+		<table id="content">
+			<tr>
+				<td>
+					<div id="mapTabs">
+						<ul>
+							<li><a id="mapTabs-label1" href="#mapTabs-1">Paper Charts (RNC & PDF)</a></li>
+							<li><a id="mapTabs-label2" href="#mapTabs-2">Electronic Charts (ENC)</a></li>
+							<li><a id="mapTabs-label3" href="#mapTabs-3">Coast Pilot</a></li>
+							<li><a id="mapTabs-label4" href="#mapTabs-4">Help</a></li>
+						</ul>
+						<div id="mapTabs-1">
+							<div id="mapRNC" class="map"></div>
+						</div>
+						<div id="mapTabs-2">
+							<div id="mapENC" class="map"></div>
+						</div>
+						<div id="mapTabs-3">
+							<div id="mapCP" class="map"></div>
+						</div>
+						<div id="mapTabs-4">
+							<h3>Helpful Hints</h3>
+							<ol>
+								<li>
+									<h3>Paper Charts (RNC & PDF)</h3>
+									<dl>
+										<dt>NOAA RNCs [RNC]</dt>
+										<dd>Geo-referenced images of the charts in BSB format</dd>
+										<dt>NOAA PDFs [PDF]</dt>
+										<dd>Full-size, 400dpi downloadable, printable images of the charts</dd>
+										<dt>NOAA ChartViewer [View]</dt>
+										<dd>Display the charts within the web browser with zoom capability</dd>
+										<dt>NOAA BookletChart [BC]</dt>
+										<dd>Page-size (8.5 x 11) printable Booklet at a reduced scale of the original chart</dd>
+										<dt>Notice to Mariners Chart Updates [NM]</dt>
+										<dd>Access to the same information used to update navigational charts</dd>
+										<dt>Print-on-Demand [POD]</dt>
+										<dd>Provide up-to-date navigation information to mariners.
+											These paper charts are updated on a weekly basis and include
+											all of the latest critical chart corrections. Order POD charts
+											from OceanGrafix or East View Geospatial.
+										</dd>
+									</dl>
+								</li>
+								<li>
+									<h3>Electronic Charts (ENC)</h3>
+									<dl>
+										<dt>NOAA ENCs [ENC]</dt>
+										<dd>Vector (S57) format of the chart used in electronic charting systems </dd>
+									</dl>
+								</li>
+								<li>
+									<h3>Coast Pilot</h3>
+									<dl>
+										<dt>NOAA Coast Pilot [CP]</dt>
+										<dd>Nautical publications that cover a variety of information important
+											to navigate coastal and intra-coastal waters and the Great Lakes
+										</dd>
+									</dl>
+								</li>
+								<li>
+									<h3>Background Maps</h3>
+									<ul>
+										<li>Google Map</li>
+										<li>Google Terrian Map</li>
+										<li>Google Satellite Map</li>
+									</ul>
+								</li>
+								<li>
+									<h3>Search Functions</h3>
+									<dl>
+										<dt>Place Names</dt>
+										<dd>Used to find specific named locations (ie. "Boston Harbor", "Monterey Bay", etc.)</dd>
+										<dt>Chart</dt>
+										<dd>Used to find specific charts by chart number (ie. “13218” or “US2EC03M”)</dd>
+										<dt>Lat/Lon</dt>
+										<dd>Used to move to a specific location within the map like 41N, 125W (ie. 41, -125)</dd>
+									</dl>
+								</li>
+								<li>
+									<h3>Auto Zoom Function</h3>
+									When selected will automatically zoom to a level that contains the entire selected chart or publication.
+								</li>
+
+								<li>
+									<h3>Quick Tips</h3>
+									<ul>
+										<li>Each tab shows the outlines of charts or publication that are available.</li>
+										<li>Changing the area of the map changes the charts that are displayed.</li>
+										<li>Zooming in will show you charts that cover a smaller area.</li>
+										<li>Clicking on the map will show all the charts that contain the location where you clicked.</li>
+										<li>Larger scale charts (for example 1:5,000) show more details than a smaller scale chart (for example 1:100,000) of the same area.</li>
+									</ul>
+								</li>
+								<li>
+									<h3>Chart Legend</h3>
+									<table id="chartLegend" border="1">
+										<th>Type of Chart</th><th>Outline Color</th><th>Scale Range</th><th>Purpose</th>
+
+										<tr style="color:red;">
+											<td><strong>Harbor Charts</strong></td><td>Red</td><td>1:1 to 1:50,000</td><td>For navigation and anchorage in harbors and small waterways</td>
+										</tr>
+										<tr style="color:purple;">
+											<td><strong>Coastal Charts</strong></td><td>Purple</td><td>1:50,001 to 1:150,000</td><td>For coastal navigation inside the offshore reefs and shoals, entering bays and harbors</td>
+										</tr>
+										<tr style="color:purple;">
+											<td><strong>General Charts</strong></td><td>Purple</td><td>1:150,001 to 1:600,000</td><td>For use when a vessel’s course is well offshore and between distant ports</td>
+										</tr>
+										<tr style="color:purple;">
+											<td><strong>Sailing Charts</strong></td><td>Purple</td><td>1:600,001+</td><td>Plotting charts used for offshore sailing and between distant ports</td>
+										</tr>
+										<tr style="color:green;">
+											<td><strong>Small Craft Charts</strong></td><td>Green</td><td>1:1 to 1:80,000</td><td>Specially designed with small-craft information</td>
+										</tr>
+									</table>
+								</li>
+								<li>
+									<h3>Version Information</h3>
+									<ul>
+										<li id="versionHTML">HTML: 1.0.4</li>
+										<li id="versionCSS">CSS: 1.0.1</li>
+										<li id="versionJavascript">JavaScript: 1.0.4</li>
+										<li id="versionData">JSON: 1/10/2014</li>
+									</ul>
+								</li>
+							</ol>
+
+							<a href="static/data/gmap_help.pdf" target="_blank">Full Help Documentation</a>
+						</div>
+					</div>
+				</td>
+				<td>
+					<div id="sidepanel">
+						<div id="sidepanel-info-title" class="sidepanel-title">General Information & Links</div>
+						<div id="sidepanel-info">
+							<div id="sidepanel-info1">
+								<!--<font size="+1">NOAA Raster Navigational Charts.</font><br><br>-->
+								<strong><A href="/static/charts/RNCs/RNCs.shtml" target="_blank">NOAA RNCs (RNC)</A></strong>:<br> &nbsp;&nbsp;&nbsp;&nbsp;Geo-referenced charts in BSB format.<br>
+								<strong><A href="http://www.charts.noaa.gov/RNCs/RNC_Agreement.shtml" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;Terms &amp; Conditions</A></strong><br>
+								<strong><a href="http://www.nauticalcharts.noaa.gov/pod/index.html">Print-on-Demand (POD)</a></strong>:<br> &nbsp;&nbsp;&nbsp;&nbsp;Order POD charts from <a href="http://www.nauticalcharts.noaa.gov/staff/print_agents.html">Certified Agents</a>. <br>
+								<strong><A href="/PDFs/PDFs.shtml" target="_blank">NOAA PDFs (PDF)</A></strong>:<br> &nbsp;&nbsp;&nbsp;&nbsp;Full-size, 400dpi printable charts.<br>
+								<strong><A href="http://www.nauticalcharts.noaa.gov/staff/BookletChart.html" target="_blank">NOAA BookletChart (BC)</A></strong>:<br> &nbsp;&nbsp;&nbsp;&nbsp;8.5" x 11" printable panels of the charts.<br>
+								<strong><a href="http://www.nauticalcharts.noaa.gov/mcd/updates/LNM_NM.html">Notice to Mariner (NM)</a></strong>:<br> &nbsp;&nbsp;&nbsp;&nbsp;Weekly corrections to the RNCs.<br>
+
+
+								<strong><A href="http://www.nauticalcharts.noaa.gov/mcd/NOAAChartViewer.html" target="_blank">NOAA ChartViewer (View)</A></strong><!--:<br> &nbsp;&nbsp;&nbsp;&nbsp;Displays charts in web browser.--><br>
+								<strong><a href="http://historicalcharts.noaa.gov/"  target="_blank">Historical Map  &amp; Chart Collection</a></strong><!--:<br> &nbsp;&nbsp;&nbsp;&nbsp; Search 200 years of images. <br>--><br>
+
+							</div>
+							<div id="sidepanel-info2">
+								<!--<font size="+1">NOAA Electronic Navigational Charts.</font><br><br>-->
+								<strong><A href="/static/charts/ENCs/ENCs.shtml" target="_blank">NOAA ENCs (ENC)</A></strong>:<br> Vector files of chart features and available in S-57 format.<br><br>
+								NOAA ENCs support marine navigation by providing the official Electronic
+								Navigational Chart used in ECDIS and in electronic charting systems.<br><br>
+								NOAA ENCs are updated weekly with Notice to Mariner corrections.<br><br>
+								<strong><A href="http://www.charts.noaa.gov/ENCs/ENC_Agreement.shtml" target="_blank">Terms &amp; Conditions</A></strong><br>
+							</div>
+							<div id="sidepanel-info3">
+								<strong><A href="http://www.nauticalcharts.noaa.gov/nsd/cpdownload.htm" target"_blank">NOAA Coast Pilot (CP)</A></strong>:<br>
+								Nautical books that cover a variety of information important to navigators of coastal and intracoastal waters
+								and the Great Lakes. <br>Issued in nine volumes, they contain supplemental information that is difficult to portray
+								on a nautical chart.<br><br>
+							</div>
+							<div id="sidepanel-info4">
+								Click on desired map location, to get information about all the products found there.<br><br>
+								<strong><a href="static/data/gmap_help.pdf" target="_blank">Full Help Documentation</a></strong><br><br>
+							</div>
+						</div>
+						<div id="sidepanel-mapinfo-title" class="sidepanel-title">Map Selection Information</div>
+						<div id="sidepanel-mapinfo">
+							<div id="selectionAccordion">
+
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+        <!-- End HTML expected by code -->
+
+		<!-- footer -->
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+           <tr>
+                <td style="background: url(http://www.nauticalcharts.noaa.gov/images/bottom-wave-bar.gif);
+                    width: 1008px; height: 45px;" align="right" valign="bottom">
+                    <span class="style8"><a href="#" onclick="confirm_entry('http://www.noaa.gov/privacy.html/')">
+                        Privacy Policy</a>&nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" onclick="confirm_entry('http://www.noaa.gov/disclaimer.html/')">
+                            Disclaimer</a>&nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" onclick="confirm_entry('http://oceanservice.noaa.gov/')">
+                                NOAA's National Ocean Service</a>&nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" onclick="confirm_entry('http://www.noaa.gov/')">
+                                    NOAA</a>&nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" onclick="confirm_entry('http://www.doc.gov/')">
+                                        U.S. Department of Commerce</a>&nbsp;
+					</span>
+                </td>
+            </tr>
+		</table>
+
+
+    </div>
+</body>
+</html>

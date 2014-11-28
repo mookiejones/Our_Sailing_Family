@@ -1,0 +1,58 @@
+
+blockquote, span, a {
+	margin: 0;
+	padding: 0;
+}
+
+p{
+	margin:0;
+	padding:0;
+	padding-bottom:5px;
+	padding-top:5px;
+}
+a img, a, img, iframe { border:0; }
+
+
+/* Headers
+------------------------------*/
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+	}
+
+/* Lists
+------------------------------*/
+
+ul, ol, dl, li, dt, dd {
+	margin: 0;
+	padding: 0;
+	}
+
+/* Links
+------------------------------*/
+
+a, a:link {}
+a:visited {}
+a:hover {}
+a:active {}
+
+/* Forms
+------------------------------*/
+
+form, fieldset {
+	margin: 0;
+	padding: 0;
+	}
+
+fieldset { border: 1px solid #000; }
+
+legend {
+	padding: 0;
+	color: #000;
+	}
+
+input, textarea, select {
+	margin: 0;
+	}
+select { padding: 0; }

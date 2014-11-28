@@ -1,0 +1,139 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-icons/maps-icons.html">
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../../bower_components/core-icon/core-icon.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input-decorator.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import"   href="../../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import"   href="../../bower_components/paper-button/paper-button.html">
+
+<polymer-element name="journey-card" attributes="journey" on-tap="{{togglePanel}}" on-mouseover="{{onMouseOver}}" on-mouseout="{{onMouseOut}}" >
+  <template>
+    <style>
+    :host {
+      display: block;
+      overflow:visible;
+      position: relative;
+
+      margin-top: 1em;
+      margin-bottom: -.33em;
+      width: 100%;
+      font-size: 1.2rem;
+      border-radius: inherit;
+      text-transform: uppercase;
+      font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial;
+      font-weight: 300;
+    }
+
+   core-icon.red {
+      transition: all 0.2s;
+      -webkit-transition: all 0.2s;
+      fill:red;
+      margin-right:1em;
+    }
+
+    core-icon:hover {
+      fill: #fb8c00;
+    }
+    paper-input{
+      padding:.33em;
+    }
+    paper-button.colored {
+      color: #4285f4;
+      margin:0em 1em 1em 1em;
+    }
+     paper-button[raised].colored {
+      background: #4285f4;
+      color: #fff;
+    }
+
+
+paper-shadow{
+  padding:.33em;
+    pointer-events: none;
+}
+
+
+
+h2{
+    font-size: .7em;
+    width: 100%;
+    font-weight: 400;
+    text-align: center;
+}
+
+        span{
+            font-weight:300;
+        }
+        .title{
+            font-weight: 200;
+        }
+        .title:hover{
+            font-weight:600;
+        }
+
+</style>
+    <paper-shadow id="shadow"  z="{{z}}" >
+    <template if="{{open}}">
+      <core-icon class="red" icon="maps:place" ></core-icon>
+    </template><span id="title" >{{journey.name}}</span>
+  <template if="{{open}}">
+  <div vertical layout>
+    <paper-input disabled floatingLabel label="Created" value={{journey.created}}>{{journey.created}}</paper-input>
+    <paper-input disabled floatingLabel label="Modified" value={{journey.modified}}></paper-input>
+    <paper-input disabled floatingLabel label="Waypoints" value={{journey.waypoints.length}}></paper-input>
+    <paper-button raised class="colored" on-tap={{onTap}}>Delete</paper-button>
+  </div>
+  </template>
+</paper-shadow>
+
+</template>
+  <script>
+  Polymer("journey-card",{
+    z:0,
+      weight:200,
+    open:false,
+    mouseover:false,
+    created:function(){
+
+    },
+    publish:{
+        journey:{value:null,reflect:true},
+         waypoint:{value:null,reflect:true}
+    },
+     togglePanel:function(e,detail,sender){
+         this.open=!this.open
+         this.fire('show-waypoints');
+
+         this.$.title.style.fontWeight=this.open?"500":"200";
+
+     },
+
+   openChanged:function(){this.$.shadow.setZ(2);this.onMouseOut()},
+
+  onMouseOver:function(e,detail,sender){
+    if(!this.open){
+      this.$.shadow.setZ(1);
+    }
+      this.$.title.style.fontWeight="300";
+  },
+  onTap:function(e,detail,sender){
+    this.open=true;
+      this.fire('show-waypoints');
+  },
+
+   onMouseOut:function(e,detail,sender){
+     if(!this.open){this.$.shadow.setZ(0);
+      this.$.title.style.fontWeight="200";
+         this.fire('save-waypoints');
+
+
+     }
+
+   }
+
+
+  });
+  </script>
+</polymer-element>
