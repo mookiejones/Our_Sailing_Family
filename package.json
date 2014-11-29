@@ -1,0 +1,25 @@
+{
+  "name": "Our_sailing_family",
+  "version": "1.0.0",
+  "description": "Our Sailing Application",
+  "main": "main.js",
+  "dependencies":{
+  "vulcanize":"latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mookiejones/Our_Sailing_Family.git"
+  },
+  "keywords": [
+    "Sailing"
+  ],
+  "author": "Charles Berman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mookiejones/Our_Sailing_Family/issues"
+  },
+  "homepage": "https://github.com/mookiejones/Our_Sailing_Family"
+}
