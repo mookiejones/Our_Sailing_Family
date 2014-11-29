@@ -90,8 +90,11 @@ h2{
 
 </template>
   <script>
+  	var normal_z = 1;
+  	var hover_z=2;
+  	var open_z=3;
   Polymer("journey-card",{
-    z:0,
+    z:1,
       weight:200,
     open:false,
     mouseover:false,
@@ -110,11 +113,11 @@ h2{
 
      },
 
-   openChanged:function(){this.$.shadow.setZ(2);this.onMouseOut()},
+   openChanged:function(){this.$.shadow.setZ(open_z);this.onMouseOut()},
 
   onMouseOver:function(e,detail,sender){
     if(!this.open){
-      this.$.shadow.setZ(1);
+      this.$.shadow.setZ(hover_z);
     }
       this.$.title.style.fontWeight="300";
   },
@@ -124,7 +127,7 @@ h2{
   },
 
    onMouseOut:function(e,detail,sender){
-     if(!this.open){this.$.shadow.setZ(0);
+     if(!this.open){this.$.shadow.setZ(normal_z);
       this.$.title.style.fontWeight="200";
          this.fire('save-waypoints');
 

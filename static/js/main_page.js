@@ -209,6 +209,12 @@ var WayPoint = new function (latLng, map) {
 
 /* End Waypoint prototype section */
 
+function bounceMarker(marker) {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function () {
+            marker.setAnimation(null);
+        }, 2000);
+    }
 function onDragEnd(){
         //cancel any existing timer
         clearTimeout(mapMoveTimer);
@@ -2427,7 +2433,10 @@ function createPoiMarker(i, point, Icon, name, result_counter_i, id) {
     return marker;
 }
 
-
+function isInfoWindowOpen(infoWindow){
+	var map = infoWindow.getMap();
+    return (map !== null && typeof map !== "undefined");
+}
 function manageMarkers(marray, types, mlimit, dicon) {
     if (!mlimit) mlimit = 100;
     var bounds = googlemap.map.getBounds();
@@ -2592,6 +2601,26 @@ function earthnc_routeload() {
     }
 }
 
+
+function onMarkerClick(marker,locationInfoWindow){
+	
+        console.log("onMarkerClick");
+        bounceMarker(marker);
+                 		if(isInfoWindowOpen(locationInfoWindow)){
+         			locationInfoWindow.close();
+         		}else{
+                var latlng = marker.getPosition();
+                locationInfoWindow.setContent(getPositionHtml(latlng, zoom));
+                locationInfoWindow.open(googlemap.map, selectedMarker);
+              }	
+	
+}
+
+function onMarkerDrag(marker,locationInfoWindow){
+	console.log('marker drag');
+	 var latlng = marker.getPosition();
+   locationInfoWindow.setContent(getPositionHtml(latlng, zoom));
+}
 
 function earthnc_routehide() {
     hide("routemaker");
@@ -3042,132 +3071,47 @@ function getColor(named) {
 var getWeather = function (location) {
 
 }
-// Add  Marker
-var addMarker = function (e, d, s) {
-    //	var marker = new google.maps.Marker({ position: e.latLng, draggable:true, title: "Point", map: googlemap.map,draggable:true });
-    var pos = new google.maps.LatLng(e.lat(), e.lng());
-    var address;
-
-    geocoder.geocode({'latLng': pos}, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-
-            // Get Location Address
-            address = results[0].formatted_address;
-
-            var m =  new google.maps.Marker({
-                position: pos,
-                map: googlemap.map,
-                icon: markerImage,
-                optimized: false,
-                draggable: true
-            });
-
-
-            mLocInfoWindow = new google.maps.InfoWindow({
-                content: getPositionHtml(pos, googlemap.map.zoom)
-            });
-            mLocInfoWindow.open(googlemap.map, m);
-
-            google.maps.event.addListener(mLocInfoWindow, 'closeclick', function () {
-                closeMarker('m');
-            });
-
-            google.maps.event.addListener(m, 'click', function () {
-                var latlng = m.getPosition();
-                mLocInfoWindow.setContent(getPositionHtml(latlng, zoom));
-                mLocInfoWindow.open(googlemap.map, m);
-            });
-
-            google.maps.event.addListener(m, "drag", function () {
-                var latlng = m.getPosition();
-                mLocInfoWindow.setContent(getPositionHtml(latlng, zoom));
-            });
-
-
-            // Add Marker
-            this.addMarker(pos,address);
-
-            var item = document.createElement("option");
-            item.text = address;
-            var selector = document.getElementsByName('sometext')[0];
-            selector.add(item);
-        }
-    });
-    this.createPoint();
-    var waypoint = {lat: e.lat(), lng: e.lng(), name: "new", title: "999"};
-    waypoints.push(waypoint);
-
-    if (!route) {
-        route = new Array();
-    }
-    route.push(pos);
-    poly.setPath(route);
-
-    googlemap.markers.every(function (m) {
-        googlemap.addMapListeners(m, 'dragend', function () {
-            console.log('drug');
-        });
-    });
-
-
-}
-
-
-
-function createPoint(pos) {
-
-    var address;
-    geocoder.geocode({'latLng': pos}, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-
-            // Get Location Address
-            address = results[0].formatted_address;
-
-            // Add Marker
-            addMarker(pos, address);
-
-            var item = document.createElement("option");
-            item.text = address;
-            item.data = selectedMarker;
-            var selector = document.getElementsByName('sometext')[0];
-            selector.add(item);
-
-        }
-    });
-
-//		addWayPoint();
-    console.log("create point");
-
-
-}
 
 var onMapRightClick=function(map){}
 Polymer("main-page", {
+	 
     tab_idx: 0,
     tab_name: 'Journeys',
+    selected_journey:0,
     fontSize: 14,
     dataservice: null,
     response: null,
+    data_items:null,
     currentWaypoints: [],
     get greeting() {
         writeDebug('get');
         return this.data;
     },
     ready: function () {
+    	
         writeDebug('Debug set to True');
         this.data = [];
         this.selectedJourney = null;
+
     },
-    onChildAdded:function(){
+    onChildAdded:function(event){
         console.log("child added");
     },
-    onDataChanged:function(r){
-  console.log('onDatachanged')
-},
+    onDataReady:function(event){
+      alert('data ready');
+    },
+    onDataChanged:function(event){
+      alert('data changed');
+    },
+    onChildAdded:function(){
+      console.log('child added')
+    },
 
     attached: function () {
-        dataservice = this.$.service;
-        this.dataservice = this.$.service;
+    	
+        dataservice = this.$.base;
+        this.dataservice = this.$.base;
+
     },
 
 
@@ -3312,6 +3256,9 @@ Polymer("main-page", {
             }, mapMovDelay);
             //manageLayers(markerlayers);
         });
+        
+
+
 
 
     },
@@ -3477,9 +3424,9 @@ Polymer("main-page", {
 
 
         // Change Zoom to saved value
-        if (this.data_items.zoom) {
-            googlemap.map.setZoom(this.data_items.zoom);
-        }
+//        if (this.data_items.zoom) {
+//            googlemap.map.setZoom(this.data_items.zoom);
+ //       }
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
@@ -3600,47 +3547,83 @@ Polymer("main-page", {
         updateMarkerPath();
     },
 
-    bounceMarker: function (marker) {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(function () {
-            marker.setAnimation(null);
-        }, 2000);
-    },
-
-    onMarkerClick: function (marker, latLng) {
-        console.log("onMarkerClick");
-        bounceMarker(marker);
-    },
-
     addWaypoint: function (e) {
+    	console.log('adding waypoint');
         var pos = new google.maps.LatLng(e.latLng.lat(), e.latLng.lng());
+        
+        
+        //TODO Instead of adding markers, we need to add waypoints.
+        
+        // Add Marker
+       	var marker = new google.maps.Marker(
+		   	{ 
+		   		position: pos, 
+		   		map: googlemap.map,
+		      icon: markerImage,
+		      optimized: false,
+		   		draggable:true
+		   		});
+		   		
+		   		
+		   		googlemap.markers.push(marker);
+		   	selectedMarker = marker;
+		   
+						locationInfoWindow = new google.maps.InfoWindow({
+							content:getPositionHtml(pos,googlemap.map.zoom)
+						});
+
+            locationInfoWindow.open(googlemap.map, marker);
+          
+
+						google.maps.event.addListener(locationInfoWindow, 'closeclick', function () {
+                closeMarker('selectedMarker');
+            });
+            
+        
+         google.maps.event.addListener(marker, 'click',function(){onMarkerClick(marker,locationInfoWindow)});
+
+         google.maps.event.addListener(marker, "drag", function () {onMarkerDrag(marker,locationInfoWindow)});
+            
         var address;
         geocoder.geocode({'latLng': pos}, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
 
+
+
+           
+
+
+
+        }
                 // Get Location Address
                 address = results[0].formatted_address;
 
                 // Add Marker
-                this.addMarker(pos, address);
+//                this.addMarker(pos, address);
 
                 var item = document.createElement("option");
                 item.text = address;
                 item.data = selectedMarker;
                 var selector = document.getElementsByName('sometext')[0];
-                selector.add(item);
-            }
-        });
-
-
-        createPoint(pos);
+                if (selector){
+              selector.add(item);}
+            
+        });				
+				
 
         var waypoint = {lat: e.latLng.lat(), lng: e.latLng.lng(), name: "new", title: "999"};
         waypoints.push(waypoint);
 
+				if (!this.currentWaypoints){
+					this.currentWaypoints = [];
+				}
+
+        this.currentWaypoints.push(waypoint);
+
         route.push(e.latLng);
         poly.setPath(route);
 
+				
         googlemap.markers.every(function (m) {
             m.addListener(m, 'dragend', function () {
                 console.log('drug');
@@ -3649,6 +3632,14 @@ Polymer("main-page", {
 
 
     },
+    observe:{
+    	 // dataChanged only called if data is pointed at a new object
+		   // changes to data's _properties or sub-properites are not observed_
+  		 data: 'dataChanged',
+		  // dataNameChanged called if `data.name` changes
+		  'data.name': 'dataNameChanged'
+    },
+   
 
     onMarkerMoved: function (marker) {
         console.log('onmarkermoved');
@@ -3690,9 +3681,28 @@ Polymer("main-page", {
 
 
     },
+    getCurrentUser:function(){
+    	var result = null;
+    	this.data_items.users.forEach(function(u){
+    		if (u.id==this.user){
+    			result = u;
+    			return result;
+    		}
+    	});
+    	if (result==null){
+    		result = {id:this.user};
+    		var u=this.data_items.users.push(result);
+    		this.$.base.commit();    		
+    		return result;
+    		console.log(null);
+    	}
+    	
+    },
     saveWaypoints: function (e, d, s) {
+    	// get current user
+    	var user = this.getCurrentUser();
+    	console.log(user);
         this.data_items.zoom = this.$.googlemap.zoom;
-        this.$.service.saveData(this.data_items);
         return;
         var d = new Array();
 

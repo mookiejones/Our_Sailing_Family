@@ -33,19 +33,18 @@
 <link rel="import" href="../../bower_components/core-list/core-list.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-action-dialog.html">
 <link rel="import" href="../../bower_components/firebase-element/firebase-element.html">
-<link rel="import" href="data-service.html">
 <link rel="import" href="map-page.html">
 <link rel="import" href="create-journey-dialog.html">
 <link rel="import" href="../../bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
-<polymer-element name="main-page" attributes="url">
+<polymer-element name="main-page" attributes="url user">
 <template>
-     <firebase-element id="base" on-child-added="{{ onChildAdded }}"  on-data-changed="{{onDataChanged}}" limit="20"  data="{{firebase_data}}" keys="{{keys}}" location="https://oursailingfamily.firebaseio.com" log></firebase-element>
-
-    <link rel="stylesheet" href="../css/styles.css">
+     <link rel="stylesheet" href="../css/styles.css">
   <div display="hidden">
     <core-icon id="mapicon" class="mapicon" icon="maps:place" ></core-icon>
   </div>
   <core-drawer-panel  id="drawerPanel"  narrow="{{narrow}}">
+  	        <firebase-element id="base"   on-data-changed="{{onDataChanged}}" limit="20"  data="{{data_items}}" keys="{{keys}}" location="https://oursailingfamily.firebaseio.com/" log></firebase-element>
+
     <core-header-panel drawer  mode="waterfall">
      <core-toolbar class="narrow">Menu</core-toolbar>
        <core-item>
@@ -93,11 +92,10 @@
 
   <paper-toast id="toast" class="capsule" text="Settings have been reset!" duration="800"></paper-toast>
         <div id="side">
-        <data-service id="service" data="{{data_items}}" user={% user %}>
-             </data-service>
+
         <core-animated-pages selected="{{tab_idx}}" transitions="cross-fade-all hero-transition" >
           <section>
-          <core-scroll-header-panel layout center >
+          <core-scroll-header-panel selected="{{selected_journey}}" layout center >
             <template repeat="{{journey in data_items.journeys}}">
                 <journey-card journey="{{journey}}" on-show-waypoints="{{showWaypoints}}" on-save-waypoints="{{saveWaypoints}}"></journey-card>
             </template>
@@ -128,13 +126,6 @@
   </core-drawer-panel>
 
 </template>
-    <script>
-        Polymer({
-            onDataAdded:function(){
-                console.log('fuck off');
-            }
-        })
-    </script>
   <script src="../js/main_page.js"></script>
 
 </polymer-element>
