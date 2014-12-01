@@ -8,11 +8,13 @@
   "dependencies": {
     "polymer": "Polymer/polymer#latest",
     "platform": "Polymer/platform#latest",
+    "paper-dropdown":"Polymer/paper-dropdown/paper-dropdown.html",
     "paper-elements": "Polymer/paper-elements#latest",
     "paper-focusable": "Polymer/paper-focusable#latest",
     "font-roboto": "Polymer/font-roboto#latest",
     "google-map": "GoogleWebComponents/google-map#latest",
     "core-ajax": "Polymer/core-ajax#latest",
+    "core-dropdown":"Polymer/core-dropdown#latest",
     "ajax-form":"garstasio/ajax-form#latest",
     "firebase-element": "Polymer/firebase-element",
     "core-elements": "Polymer/core-elements#latest",

@@ -11,7 +11,8 @@
   <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
   <link rel="import" href="bower_components/polymer/polymer.html">
   <link rel="import" href="bower_components/paper-button/paper-button.html">
- <link rel="import" href="static/templates/main-page.html">
+<link rel="import" href="static/templates/main-page.html">
+<link rel="import" href="static/templates/map-page.html">
 <span>%user%</span>
 </head>
 <body unresolved>
@@ -19,12 +20,19 @@
 {%  if message %}
 <div class="alert alert-info">{{ message }}</div>
 {% endif %}
-<div layout vertical>
+<div layout vertical >
     <a href="%url%" height="40px">logout</a>
 <paper-button>
     LogOut
 </paper-button>
-<main-page url=%url% user={{userId}}></main-page>
+
+<div flex>
+    <main-page url=%url% user={{userId}}></main-page>
+    <!--
+    <map-page></map-page>
+-->
+</div>
+
 </div>
 
 </body>

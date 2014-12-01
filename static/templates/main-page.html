@@ -77,12 +77,9 @@
       <div id="main-content" layout horizontal>
           <div layout vertical flex>
         <div id="navaids_btn_id"></div>
-       <google-map id="googlemap"
-     	 on-google-map-ready="{{mapReady}}" libraries="geometry">
-            <template id="markersTemplate" repeat="{{waypoint in currentWaypoints}}">
-             <google-map-marker on-tap="{{markerSelected}}" id={{waypoint.title}} latitude={{waypoint.lat}} longitude={{waypoint.lng}} title={{waypoint.title}} draggable="true"></google-map-marker>
-            </template>
-     </google-map>
+       <map-page id="googlemap" >
+
+     </map-page>
               <div class="map-info" layout horizontal>
                   <h2>here</h2>
               </div>
